@@ -20,13 +20,17 @@
         <h5>Notificaciones</h5>
       </router-link>
     </div>
-
     <router-link
       v-show="setPermission"
+      :to="`/notificaciones`"
       class="inpuestos"
     >
-     <h5> Impuestos perri </h5>
-     </router-link>
+    <img
+          class="logo scale-up-center"
+          src="./../../assets/images/MuniEnLinea.svg"
+          alt=""
+        />
+    </router-link>
 
     <!-- nav del mmunicipal -->
     <nav v-if="this.role == 'MUNI_ROLE'" id="sidebarMenu" class="btn-container">
@@ -151,9 +155,9 @@ export default {
   border-top-right-radius: 20px;
   left: 2vw;
   background-image: linear-gradient(
-  to right,
-  #FFB900 -14.87%, 
-  #FF2745 108.09%
+    to right,
+    #FFB900 -14.87%,
+    #FF2745 108.09%
   );
   padding-left: 1vw;
   padding-top: 1vh;

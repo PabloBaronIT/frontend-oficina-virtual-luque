@@ -397,11 +397,11 @@ h1 {
   margin-top: 4vh;
   margin-bottom: 4vh;
   font-size: 50px;
-  color: #019939;
+  color: #00C3A8;
 }
 h5 {
   font-weight: 700;
-  color: #019939;
+  color: #00C3A8;
   font-size: 18px;
 }
 .card-body img {

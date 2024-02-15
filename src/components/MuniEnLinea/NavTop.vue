@@ -37,9 +37,20 @@
         </li>
       </ul>
     </div>
-    <!--logo muni-->
-    <router-link :to="`/munienlinea`">
-     acá va el logo de Luque
+     <!--logo muni-->
+     <router-link :to="`/munienlinea`" v-if="this.url === 'localhost:8080'">
+      <img
+        src="./../../assets/images/LogoEnLineaVerde.svg"
+        alt="Luque"
+        class="imagenlogo"
+      />
+    </router-link>
+    <router-link :to="`/munienlinea`" v-else>
+      <img
+        src="./../../assets/images/logo-muni.svg"
+        alt="Luque"
+        class="imagenlogo"
+      />
     </router-link>
 
     <!--mi cuenta-->
@@ -458,7 +469,7 @@ export default {
   padding-left: 20px;
   text-align: left;
   font-size: 20px;
-  color: #128d44;
+  color: #00C3A8;
   width: 360px;
 }
 .sinleer {
@@ -534,7 +545,7 @@ a {
 }
 h5,
 p {
-  color: #e52320;
+  color: #FF2745;
 }
 /* ------------------------------------------------------------ */
 @media (max-width: 1200px) {
