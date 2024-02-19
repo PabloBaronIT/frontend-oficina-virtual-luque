@@ -1,8 +1,7 @@
 <template>
   <div class="row">
     <h5 class="fecha">
-      <i class="bi bi-calendar4-week" style="margin-right: 8px"></i
-      ><strong>{{ this.fechaCompleta }}</strong>
+      <i class="bi bi-calendar4-week"></i>{{ this.fechaCompleta }}
     </h5>
   </div>
 </template>
@@ -109,7 +108,11 @@ export default {
   padding-right: 3.5vw;
   z-index: 10;
   top: 18vh;
-  font-size: 18px;
+  font-size: 14px;
   color: #9b9a9a;
+}
+.bi {
+  font-size: 27px;
+  margin-right: 1%;
 }
 </style>

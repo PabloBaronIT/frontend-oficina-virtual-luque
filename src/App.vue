@@ -138,7 +138,8 @@ export default {
   user-select: none;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  font-family: "Source Sans 3", sans-serif;
+  /* font-family: "Source Sans 3", sans-serif; */
+  font-family: "Montserrat", sans-serif;
   /* -moz-osx-font-smoothing: grayscale; */
   /* text-align: center; */
   /* color: var(--text-color); */
@@ -146,6 +147,7 @@ export default {
   width: 100vw;
   /* height: auto;  */
   /* width: 100%; */
+  background: #f5f5f5;
 }
 body {
   overflow-y: auto;

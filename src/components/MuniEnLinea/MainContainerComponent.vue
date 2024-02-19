@@ -75,56 +75,27 @@
       </div>
     </div>
     <!-- OTRAS GESTIONES -->
-    <div class="otrosTramites">
-      <div class="gestiones">
-        <h5>Si no encontrás tu gestión o tenés dudas, ingresá aquí</h5>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="25"
-          viewBox="0 0 16 25"
-          fill="none"
-          style="margin-left: 2rem; margin-top: 0.5rem"
-        >
-          <path
-            d="M3 22L13 12.5L3 3"
-            stroke="#019939"
-            stroke-width="5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        <button class="botonGestiones"><h5>Otras gestiones</h5></button>
-      </div>
-      <div class="gestiones">
-        <h5>Si necesitás nuestra ayuda, ingresá aquí</h5>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="25"
-          viewBox="0 0 16 25"
-          fill="none"
-          style="margin-left: 2rem; margin-top: 0.5rem"
-        >
-          <path
-            d="M3 22L13 12.5L3 3"
-            stroke="#019939"
-            stroke-width="5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        <button class="botonGestiones">
-          <div style="display: flex; flex-direction: row">
-            <i
-              class="bi bi-telephone"
-              style="margin-right: 0.5vw; margin-top: 0.5vh"
-            ></i>
-            <h5>Llámenme</h5>
-          </div>
-        </button>
-      </div>
+    <!-- <div class="otrosTramites"> -->
+    <div class="gestiones">
+      <h5>Si no encontrás tu gestión o tenés dudas, ingresá aquí</h5>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="13"
+        height="19"
+        viewBox="0 0 13 19"
+        fill="none"
+      >
+        <path
+          d="M3 16L9.54348 9.5L3 3"
+          stroke="#00C3A8"
+          stroke-width="5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <button class="botonGestiones"><h5>Otras gestiones</h5></button>
     </div>
+    <!-- </div> -->
     <!-- RENTAS Y AFIP, ETC -->
     <div class="accesos">
       <h5>
@@ -347,30 +318,38 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 80%;
 }
 .gestiones {
   background: white;
   height: 6vh;
-  width: auto;
+  width: 70%;
   margin: auto;
+  margin-top: 5%;
   border-radius: 0px 20px 0px 20px;
   padding-left: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+.gestiones svg {
+  margin-top: 1.5%;
+}
 .gestiones h5 {
   margin-top: 0.5rem;
   font-weight: 400;
   color: #9b9a9a;
-  font-size: 20px;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .botonGestiones {
   height: 6vh;
-  width: 11vw;
+  width: 25%;
   border: 0.16em solid rgb(255, 255, 255);
   text-align: center;
-  background-image: linear-gradient(90deg, #019939 4.26%, #ffcc03 126.04%);
+  background-image: linear-gradient(90deg, #00c3a8 4.26%, #ffb900 126.04%);
   border-radius: 0px 20px 0px 20px;
   transition: all 0.2s;
   border-style: none;
@@ -381,6 +360,9 @@ export default {
 .botonGestiones h5 {
   color: white;
   font-weight: 700;
+  font-size: 17px;
+  font-style: normal;
+  line-height: normal;
 }
 
 .accesos {
@@ -396,12 +378,12 @@ export default {
 h1 {
   margin-top: 4vh;
   margin-bottom: 4vh;
-  font-size: 50px;
-  color: #00C3A8;
+  font-size: 43px;
+  color: #00c3a8;
 }
 h5 {
   font-weight: 700;
-  color: #00C3A8;
+  color: #00c3a8;
   font-size: 18px;
 }
 .card-body img {
@@ -418,32 +400,43 @@ h5 {
   box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
   width: 95%;
   max-height: 90px;
-  border-radius: 0px 20px 0px 0px;
+  border-radius: 8px;
   background-color: white;
   text-align: left;
-  padding: 0.2rem;
+  padding: 0.1rem;
   margin: auto;
 }
 .card h5 {
   font-size: 18px;
   color: #9b9a9a;
+  font-style: normal;
+  font-weight: 700;
 }
 .card-body {
   background: white;
   display: flex;
   flex-direction: row;
-  border-radius: 0px 19px 0px 0px;
+  border-radius: 8px;
   max-height: 80px;
 
   /* width: 100%; */
 }
 .card:hover {
-  background: linear-gradient(180deg, #019939 4.26%, #ffcc03 126.04%);
+  background: linear-gradient(
+    to right,
+    #ff6928,
+    #ff8219,
+    #ff9a08,
+    #ecab00,
+    #d7b909,
+    #c2c627,
+    #96ca4b,
+    #6ccb6d,
+    #3fc88d,
+    #00c3a8
+  );
   /* width: 110%; */
   /* position: relative; */
-}
-.card h5:hover {
-  color: #019939;
 }
 
 .tabs {
@@ -460,8 +453,8 @@ h5 {
   background: linear-gradient(90deg, #ffcc03 -6.36%, #e52320 100%);
 }
 .items {
-  width: 80%;
-  height: 8%;
+  width: 90%;
+  /* height: 5%; */
   margin: auto;
   margin-top: 3vh;
   display: flex;
