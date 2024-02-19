@@ -43,7 +43,7 @@ main {
   position: absolute;
   right: 0;
   padding-top: 10%;
-  padding-bottom: 10%;
+  padding-bottom: 7%;
   /*  */
   padding-left: 4%;
   padding-right: 4%;

@@ -37,15 +37,15 @@
         </li>
       </ul>
     </div>
-     <!--logo muni-->
-     <router-link :to="`/munienlinea`" v-if="this.url === 'localhost:8080'">
+    <!--logo muni-->
+    <!-- <router-link :to="`/munienlinea`">
       <img
         src="./../../assets/images/LogoEnLineaVerde.svg"
         alt="Luque"
         class="imagenlogo"
       />
-    </router-link>
-    <router-link :to="`/munienlinea`" v-else>
+    </router-link> -->
+    <router-link :to="`/munienlinea`">
       <img
         src="./../../assets/images/logo-muni.svg"
         alt="Luque"
@@ -92,7 +92,7 @@
           alt=""
         />
       </router-link>
-      <div style="display: flex; flex-direction: row; padding-top: 2vh">
+      <div style="display: flex; flex-direction: row; padding-top: 1%">
         <router-link :to="`/notificaciones`">
           <div class="botonNotificacion">
             <i class="bi bi-bell"> </i>
@@ -426,7 +426,7 @@ export default {
 .nav-container {
   position: fixed;
   z-index: 15;
-  height: 17vh;
+  max-height: 117px;
   background-color: white;
   width: 100%;
   display: flex;
@@ -435,8 +435,9 @@ export default {
   padding-left: 0;
 }
 .imagenlogo {
-  width: 12vw;
-  height: 10vh;
+  width: 80%;
+  /* height: 10vh; */
+  min-height: 58px;
   position: relative;
   margin-left: 2.6vw;
 }
@@ -469,7 +470,7 @@ export default {
   padding-left: 20px;
   text-align: left;
   font-size: 20px;
-  color: #00C3A8;
+  color: #00c3a8;
   width: 360px;
 }
 .sinleer {
@@ -545,7 +546,7 @@ a {
 }
 h5,
 p {
-  color: #FF2745;
+  color: #ff2745;
 }
 /* ------------------------------------------------------------ */
 @media (max-width: 1200px) {

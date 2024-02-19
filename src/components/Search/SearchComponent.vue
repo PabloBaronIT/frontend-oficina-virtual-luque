@@ -123,11 +123,11 @@ export default {
 .circuloVerde {
   position: absolute;
   /* z-index: 15; */
-  right: 2rem;
-  /* top: -0.2rem; */
+  right: 1rem;
+  margin-top: 0.5%;
   /* margin-left: 2rem; */
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   /* padding-left: 11px; */
   cursor: pointer;

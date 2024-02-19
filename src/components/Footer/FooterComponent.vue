@@ -10,8 +10,8 @@
         <i class="bi bi-envelope-fill redes"></i>
       </div>
       <h6 style="margin-right: 2rem; margin-top: 1rem">
-        <strong>Municipalidad de Luque | </strong>
-       9 de Julio 806, Luque, Córdoba | CP X5967 | TEL.:03573 49-0113
+        Municipalidad de Luque | 9 de Julio 806, Luque, Córdoba | CP X5967 |
+        TEL.:03573 49-0113
       </h6>
     </div>
   </footer>
@@ -47,9 +47,12 @@ export default {
   margin-bottom: 10px;
 }
 h6 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 400;
   color: #858585;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .grupoRedes {
   margin-left: 3vw;

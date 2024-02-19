@@ -1,20 +1,35 @@
 <template>
   <div class="contenedor">
-    <div class="boxDerechoMujer"></div>
-    <div class="boxIzquierdo">
-      <div class="logosMuni">
+    <div class="boxIzquierdoHombre">
+      <div class="logos">
+        <img
+          src="./../../assets/images/LogoBlancoLuque.svg"
+          alt="logoMuni"
+          class="width: 100%;"
+        />
         <img
           src="./../../assets/images/LogoEnLineaBlanco.svg"
           alt="logoMuni"
           class="logo"
         />
       </div>
+    </div>
+    <div class="capa"></div>
+
+    <div class="boxDerecho">
+      <!-- <div class="logosMuni">
+        <img
+          src="./../../assets/images/LogoEnLineaBlanco.svg"
+          alt="logoMuni"
+          class="logo"
+        />
+      </div> -->
       <div class="bienvenida">
-        <h1>¡BIENVENIDO A LUQUE!</h1>
+        <h1>¡BIENVENIDO!</h1>
         <p>
-          Presentá aquí todos tus trámites y gestiones de manera rápida <br />
-          y simple, sin horarios y desde el lugar que vos elijas.
-	</p>
+          Presentá aquí todos tus trámites y gestiones de manera rápida y
+          simple, sin horarios y desde el lugar que vos elijas.
+        </p>
       </div>
       <div class="internoBox">
         <h1>INGRESÁ CON</h1>
@@ -23,18 +38,18 @@
             ><img src="./../../../public/img/LogoCidi.png" alt="imagen cidi"
           /></a>
         </button>
-        <h5>Accedé a todos los trámites y servicios</h5>
+        <p>Accedé a todos los trámites y servicios</p>
         <div class="linea"></div>
-        <h5>También podés acceder sin usuario de CIDI</h5>
+        <p>También podés acceder sin usuario de CIDI</p>
         <div
           class="botonServicios"
           @click="() => (this.modalFormulario = true)"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 50 50"
+            width="60"
+            height="60"
+            viewBox="0 0 60 60"
             fill="none"
             class="svgCirculo"
           >
@@ -278,21 +293,21 @@ export default {
                 };
                 console.log(
                   this.datafacebook,
-                  "soy los datos de face en un estado",
+                  "soy los datos de face en un estado"
                 );
                 // await this.getLogFace(this.datafacebook);
                 // dataUser = {
                 //   name: response.name.split(" "),
                 //   email: response.email,
                 // };
-              },
+              }
             );
             // console.log("otro afuera");
             // Now you can redirect the user or do an AJAX request to
             // a PHP script that grabs the signed request from the cookie.
           }
         },
-        { scope: "public_profile,email" },
+        { scope: "public_profile,email" }
       );
     },
     getLogFace(userData) {
@@ -448,7 +463,7 @@ export default {
             localStorage.setItem("token", tokenRepresetations.authToken);
             localStorage.setItem(
               "refreshToken",
-              tokenRepresetations.refreshToken,
+              tokenRepresetations.refreshToken
             );
 
             //se buscan los datos del usuario al que representa
@@ -490,39 +505,39 @@ export default {
           this.dispatchLoginPermission();
           window.localStorage.setItem(
             "role",
-            response.data.UserProfile.user.role || null,
+            response.data.UserProfile.user.role || null
           );
           window.localStorage.setItem(
             "name",
-            response.data.UserProfile.user.firstname || null,
+            response.data.UserProfile.user.firstname || null
           );
           window.localStorage.setItem(
             "lastname",
-            response.data.UserProfile.user.lastname || null,
+            response.data.UserProfile.user.lastname || null
           );
           window.localStorage.setItem(
             "cuil",
-            response.data.UserProfile.user.cuil || null,
+            response.data.UserProfile.user.cuil || null
           );
           window.localStorage.setItem(
             "adress",
-            response.data.UserProfile.user.adress || null,
+            response.data.UserProfile.user.adress || null
           );
           window.localStorage.setItem(
             "email",
-            response.data.UserProfile.user.email || null,
+            response.data.UserProfile.user.email || null
           );
           window.localStorage.setItem(
             "id",
-            response.data.UserProfile.user.id || null,
+            response.data.UserProfile.user.id || null
           );
           window.localStorage.setItem(
             "fecha-creacion",
-            response.data.UserProfile.user.created_at || null,
+            response.data.UserProfile.user.created_at || null
           );
           window.localStorage.setItem(
             "nivel",
-            response.data.UserProfile.user.level.level || null,
+            response.data.UserProfile.user.level.level || null
           );
           // this.loading = false;
           // this.$router.push("munienlinea");
@@ -561,11 +576,11 @@ export default {
           this.representante = response.data.User;
           localStorage.setItem(
             "representanteFirstname",
-            response.data.User.firstname,
+            response.data.User.firstname
           );
           localStorage.setItem(
             "representanteLastname",
-            response.data.User.lastname,
+            response.data.User.lastname
           );
 
           this.dispatchRepresentante();
@@ -594,63 +609,75 @@ export default {
 /* CSS NUEVO*/
 .contenedor {
   width: 100%;
-  height: 100vh;
+  height: 120vh;
   align-items: center;
-  /* margin-top: -4vh; */
+  /* margin-top: -10%; */
 }
-.boxDerechoMujer {
-  width: 70%;
+.boxIzquierdoHombre {
+  /* width: 100%; */
   height: 100%;
-  background-image: url("../../../public/img/hombrecomputadora.png");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url("../../../public/img/HombreB.png");
   background-position: center;
-  position: absolute;
-  right: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  /* position: absolute; */
+  /* left: -20%; */
+  /* right: 0; */
   /* margin-top: -14vh; */
 }
 
-.boxIzquierdo {
+.boxDerecho {
   width: 45%;
-  height: 95%;
-  border-radius: 0px 0px 30px 0px;
+  height: 120%;
+  background: rgba(83, 83, 83, 0.2);
   position: absolute;
-  left: 0;
+  right: 0;
+  top: 0;
+  padding: 4% 0%;
   /* top: -17vh;
   left: -18vw; */
-  background: linear-gradient(
+  /* background: linear-gradient(
     158deg,
     #019939 0%,
     #ffcc03 58.89%,
     #e52320 103.81%
-  );
-  backdrop-filter: blur(17.5px);
+  ); */
+  z-index: 20;
+  backdrop-filter: blur(22.5px);
 }
-.logosMuni {
+/* .logosMuni {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding-top: 4vh;
-}
+} */
 .logo {
-  width: 23vw;
-  height: 8vh;
+  /* max-width: 190px; */
+  /* min-height: 98px; */
+  width: 25%;
+}
+.LogoLuque {
+  /* width: 20%; */
+  /* max-height: 98px; */
 }
 .bienvenida {
   text-align: center;
-  width: 100%;
+  width: 90%;
   margin: auto;
   margin-top: 8%;
 }
 h1 {
   color: white;
-  font-weight: 700;
-  font-size: 28px;
-}
-.bienvenida p {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 36px;
   font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+p {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
   line-height: normal;
   color: white;
 }
@@ -659,31 +686,43 @@ h1 {
   width: 100%;
   margin: auto;
   /* padding-top: 7%; */
-  margin-top: 5%;
+  margin-top: 10%;
   text-align: center;
+}
+.internoBox h1 {
+  font-size: 27.34px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .botonServicios {
   position: relative;
-  height: 7.5vh;
-  width: 40%;
+  /* height: 7.5vh; */
+  /* width: 40%; */
+  max-width: 348px;
+  height: 82px;
   background: white;
-  border-radius: 10px;
+  border-radius: 20px;
   margin: auto;
-  padding-top: 1vh;
-  padding-right: 1.2vw;
+  margin-top: 5%;
+  /* padding-top: 1vh; */
+  /* padding-right: 1.2vw; */
+  padding: 5% 2%;
   text-align: right;
   cursor: pointer;
 }
 .botonServicios p {
   color: #000;
-  font-size: 14px;
-  margin-top: 0.5rem;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .svgCirculo {
   position: absolute;
-  margin-top: -2%;
-  left: 2%;
+  margin-top: -5%;
+  left: 1%;
 }
 .modalFormulario {
   position: absolute;
@@ -693,7 +732,7 @@ h1 {
   background-color: rgba(255, 255, 255, 0.5);
   top: 15%;
   right: 30vw;
-  z-index: 1;
+  z-index: 21;
   font-size: 15px;
   padding: 2rem;
 }
@@ -722,7 +761,7 @@ h1 {
 .linea {
   background: white;
   height: 1px;
-  width: 22.5vw;
+  width: 85%;
   margin: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -733,24 +772,27 @@ h1 {
   width: 200px;
 }
 .botonCidi {
-  width: 30%;
-  height: 10vh;
+  /* width: 30%;
+  height: 10vh; */
+  margin-top: 2%;
+  min-width: 363px;
+  min-height: 111px;
   background: white;
   border-radius: 20px;
-  margin-bottom: 3vh;
+  margin-bottom: 3%;
 }
 
 .botonCidi img {
   /* padding: 0 0 0 0; */
   /* margin: 0 6px 0 0; */
   /* float: left; */
-  height: 80%;
+  height: 90%;
   width: 90%;
 }
-h5 {
+/* h5 {
   color: white;
   font-size: 20px;
-}
+} */
 .close {
   position: absolute;
   right: 2rem;
@@ -768,6 +810,32 @@ h5 {
   position: absolute;
   top: 30%;
   left: 40%;
+}
+.logos {
+  position: absolute;
+  /* min-width: 1000px; */
+  width: 55%;
+  z-index: 10;
+  bottom: -15%;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.capa {
+  position: absolute;
+  /* border-radius: 60px 0px 60px 0px; */
+  top: 0;
+  background-size: contain;
+  z-index: 20;
+  width: 100%;
+
+  height: 120%;
+  background: linear-gradient(
+    226deg,
+    rgba(0, 0, 0, 0) 64.05%,
+    rgba(0, 0, 0, 0.8) 113.93%
+  );
 }
 /*--------------------------------------------------------------------------  */
 @media (max-width: 800px) {

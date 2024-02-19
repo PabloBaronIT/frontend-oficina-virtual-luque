@@ -2,11 +2,11 @@
   <!-- Sidebar -->
   <div class="nav-container" v-if="this.role !== 'MUNI_ROLE'" id="sidebarMenu">
     <!--el los usuarios que tienen representados ,el linck de inicio no se muestra hasta que seleccionar a quien representar-->
-    <div class="tusGestiones">
+    <!-- <div class="tusGestiones">
       <h3 class="tus"><strong>Tus</strong></h3>
       <h1 style="margin-top: 20px" class="tituloDegrade">gestiones</h1>
       <h3 class="estes tituloDegrade">donde estés</h3>
-    </div>
+    </div> -->
 
     <div class="navUser">
       <router-link v-show="setPermission" :to="`/munienlinea`" class="bn3">
@@ -25,11 +25,7 @@
       :to="`/notificaciones`"
       class="inpuestos"
     >
-    <img
-          class="logo scale-up-center"
-          src="./../../assets/images/MuniEnLinea.svg"
-          alt=""
-        />
+      <img src="./../../assets/images/MuniTeLlama.svg" alt="" />
     </router-link>
 
     <!-- nav del mmunicipal -->
@@ -91,7 +87,8 @@ export default {
   width: 18vw;
   height: 100vh;
   /* background-color: linear-gradient(0deg, #fff 0%, #d9d9d9 100%); */
-  background-image: url("./../../assets/images/circuloFondoNav.svg");
+  background: #f0f0f0;
+  background-image: url("./../../assets/images/FondoNavLuque.svg");
   opacity: 0.8;
   background-repeat: repeat;
   background-position: inherit;
@@ -134,7 +131,7 @@ export default {
   align-items: center;
 }
 .bn3 {
-  height: 5vh;
+  height: 25%;
   width: 13.5vw;
   border: 0.16em solid rgb(255, 255, 255);
   text-align: center;
@@ -154,11 +151,7 @@ export default {
   height: 10vh;
   border-top-right-radius: 20px;
   left: 2vw;
-  background-image: linear-gradient(
-    to right,
-    #FFB900 -14.87%,
-    #FF2745 108.09%
-  );
+  background-image: linear-gradient(to right, #ffb900 -14.87%, #ff2745 108.09%);
   padding-left: 1vw;
   padding-top: 1vh;
   display: flex;
@@ -175,6 +168,9 @@ nav a {
 h5 {
   color: white;
   font-weight: 700;
+  font-size: 17.5px;
+  font-style: normal;
+  line-height: normal;
   /* font-size: 25px; */
 }
 a {
