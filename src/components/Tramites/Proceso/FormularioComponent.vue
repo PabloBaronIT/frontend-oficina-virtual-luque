@@ -636,13 +636,15 @@ h5 {
 }
 
 .volver h4 {
-  /* margin-left: 14px; */
-  color: #808081;
-  font-weight: 100;
-  margin-top: 2.5vh;
+  margin-left: 14px;
+  margin-right: 14px;
 
-  margin-left: 1vw;
-  margin-right: 1vw;
+  color: #4b4a49;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 1.5vh;
 }
 .tipoMap {
   padding: 1rem;

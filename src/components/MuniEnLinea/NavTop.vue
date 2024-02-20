@@ -37,14 +37,7 @@
         </li>
       </ul>
     </div>
-    <!--logo muni-->
-    <!-- <router-link :to="`/munienlinea`">
-      <img
-        src="./../../assets/images/LogoEnLineaVerde.svg"
-        alt="Luque"
-        class="imagenlogo"
-      />
-    </router-link> -->
+
     <router-link :to="`/munienlinea`">
       <img
         src="./../../assets/images/logo-muni.svg"
@@ -92,45 +85,16 @@
           alt=""
         />
       </router-link>
-      <div style="display: flex; flex-direction: row; padding-top: 1%">
+      <div style="display: flex; flex-direction: row">
         <router-link :to="`/notificaciones`">
           <div class="botonNotificacion">
             <i class="bi bi-bell"> </i>
           </div>
-          <!-- <div v-if="this.lengtNotifications > 0" class="sinleer"></div> -->
         </router-link>
         <div class="botonOut" @click="this.logOf">
           <i class="bi bi-power"></i>
         </div>
       </div>
-      <!-- <div
-        v-if="this.modalNotificacion && this.notificacion != null"
-        class="modalNotifiacion"
-      >
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-          "
-        >
-          <h5>{{ this.notificacion.subject }}</h5>
-          <p
-            @click="
-              () => {
-                (this.modalNotifiacion = false),
-                  (this.notificacion = null),
-                  (this.notificationNew = false);
-              }
-            "
-          >
-            X
-          </p>
-        </div>
-        <p>
-          {{ this.notificacion.message }}
-        </p>
-      </div> -->
     </div>
   </div>
 </template>
@@ -431,8 +395,9 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding-top: 1rem;
-  padding-left: 0;
+  /* padding-top: 1rem;
+  padding-left: 0; */
+  padding: 2% 0% 1%;
 }
 .imagenlogo {
   width: 80%;
@@ -447,6 +412,7 @@ export default {
   justify-content: center;
   align-items: left;
   margin-left: 6vw;
+  margin-top: -1%;
 }
 .circuloAvatar {
   width: 5.5vw;
@@ -485,8 +451,8 @@ export default {
 }
 .botonNotificacion {
   position: relative;
-  max-height: 56px;
-  min-width: 52px;
+  height: 52px;
+  width: 52px;
   border-radius: 50%;
   background-image: linear-gradient(
     to right,
@@ -505,8 +471,8 @@ export default {
   transform: rotate(40deg);
 }
 .botonOut {
-  height: 49px;
-  width: 50px;
+  height: 52px;
+  width: 52px;
   border-radius: 50%;
   /* background: red; */
   background-image: linear-gradient(
@@ -607,7 +573,7 @@ p {
 }
 @media (max-width: 600px) {
   .imagenlogo {
-    width: 30vw;
+    width: 25vw;
     height: 6vh;
   }
 }

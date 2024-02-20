@@ -33,7 +33,7 @@
                   </div>
                   <div style="margin-left: 15px">
                     <h5>
-                      <strong> {{ sector.title }}</strong>
+                      {{ sector.title }}
                     </h5>
                   </div>
                 </div>
@@ -64,7 +64,7 @@
                   </div>
                   <div style="margin-left: 15px">
                     <h5 style="text-decoration: none">
-                      <strong> {{ sector.title }}</strong>
+                      {{ sector.title }}
                     </h5>
                   </div>
                 </div>
@@ -99,7 +99,7 @@
     <!-- RENTAS Y AFIP, ETC -->
     <div class="accesos">
       <h5>
-        Si tu gestion es para Rentas o Afip, también te facilitamos el acceso:
+        Si tu gestión es para Rentas o Afip, también te facilitamos el acceso:
       </h5>
       <div class="items">
         <a
@@ -373,7 +373,10 @@ export default {
 .accesos h5 {
   font-weight: 400;
   color: #9b9a9a;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 17px;
+  font-style: normal;
+  line-height: normal;
 }
 h1 {
   margin-top: 4vh;
@@ -389,7 +392,7 @@ h5 {
 .card-body img {
   /* object-fit: cover; */
   width: 90%;
-  max-height: 60px;
+  max-height: 70px;
   margin-bottom: 0;
 }
 
@@ -397,7 +400,7 @@ h5 {
   background: var(--grey-bk);
   font-weight: bold;
   /* border: none; */
-  box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
   width: 95%;
   max-height: 90px;
   border-radius: 8px;
@@ -460,11 +463,14 @@ h5 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background: white;
   border-radius: 0px 20px 0px 20px;
   box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
-  padding: 10px 9vw 5px 9vw;
+  padding: 10px 0px 7px 0px;
+}
+.items a {
+  margin: 0% 2%;
 }
 .prueba-container {
   display: flex;

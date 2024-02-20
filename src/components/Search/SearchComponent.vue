@@ -102,7 +102,7 @@ export default {
   /* margin-top: 4rem; */
 }
 .search {
-  width: 100%;
+  width: 95%;
   position: relative;
   height: 7vh;
   border-color: transparent;
@@ -123,7 +123,7 @@ export default {
 .circuloVerde {
   position: absolute;
   /* z-index: 15; */
-  right: 1rem;
+  right: 3rem;
   margin-top: 0.5%;
   /* margin-left: 2rem; */
   height: 40px;
