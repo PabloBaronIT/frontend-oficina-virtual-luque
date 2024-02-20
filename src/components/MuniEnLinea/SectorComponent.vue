@@ -10,7 +10,7 @@
       />
       <h1 class="tituloPrincipal">
         {{ this.$route.params.sectorTitle }}
-        <h4 style="color: #4b4a49; font-weight: 100; margin-top: 1rem">
+        <h4 style="color: #4b4a49; font-weight: 400; margin-top: 1rem">
           Por favor, elige aqui el tipo de solicitud que queres realizar.
         </h4>
       </h1>
@@ -175,9 +175,11 @@ export default {
 /* CSS NUEVO */
 .tituloPrincipal {
   color: #4b4a49;
-  font-weight: 900;
-  font-size: 50px;
+  font-weight: 700;
+  font-size: 42px;
   margin-top: 4vh;
+  font-style: normal;
+  line-height: normal;
 }
 .imagenSector {
   width: 6vw;
@@ -192,14 +194,15 @@ export default {
 .cardTramites {
   position: relative;
   background: var(--grey-bk);
+  border-radius: 8px;
 
   box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
-  min-width: 100%;
+  width: 100%;
   max-height: 90px;
-  border-radius: 0px 20px 0px 0px;
   background: white;
-  padding: 0.2rem;
+  padding: 0.1rem;
   margin: auto;
+  text-align: left;
   cursor: pointer;
 }
 .cardTramites h5 {
@@ -208,12 +211,12 @@ export default {
 }
 .card-body {
   background: white;
-  border-radius: 0px 19px 0px 0px;
   min-height: 80px;
   min-width: 100%;
   text-align: left;
   padding-top: 2rem;
   padding: 1rem;
+  border-radius: 8px;
 }
 .cardTramites a {
   text-decoration: none;
@@ -224,19 +227,30 @@ h5 {
   font-weight: 700;
 }
 .cardTramites:hover {
-  background: linear-gradient(180deg, #019939 4.26%, #ffcc03 126.04%);
+  background: linear-gradient(
+    to right,
+    #ff6928,
+    #ff8219,
+    #ff9a08,
+    #ecab00,
+    #d7b909,
+    #c2c627,
+    #96ca4b,
+    #6ccb6d,
+    #3fc88d,
+    #00c3a8
+  );
 }
-.cardTramites h5:hover {
-  color: #019939;
-}
+
 .tramites {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3vw;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin: auto;
   margin-top: 6vh;
   margin-bottom: 10%;
-  padding-left: 3vw;
-  width: 100%;
+  /* padding-left: 3vw; */
+  width: 80%;
   /* grid-auto-rows: minmax(100%, auto); */
 }
 .modalEstado {
@@ -296,8 +310,11 @@ h5 {
 }
 .volver h4 {
   margin-left: 14px;
-  color: #808081;
-  font-weight: 100;
+  color: #4b4a49;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
   margin-top: 1.5vh;
 }
 .modalTop {

@@ -2,11 +2,12 @@
   <!-- Sidebar -->
   <div class="nav-container" v-if="this.role !== 'MUNI_ROLE'" id="sidebarMenu">
     <!--el los usuarios que tienen representados ,el linck de inicio no se muestra hasta que seleccionar a quien representar-->
-    <!-- <div class="tusGestiones">
-      <h3 class="tus"><strong>Tus</strong></h3>
+
+    <div class="tusGestiones">
+      <!-- <h3 class="tus"><strong>Tus</strong></h3>
       <h1 style="margin-top: 20px" class="tituloDegrade">gestiones</h1>
-      <h3 class="estes tituloDegrade">donde estés</h3>
-    </div> -->
+      <h3 class="estes tituloDegrade">donde estés</h3> -->
+    </div>
 
     <div class="navUser">
       <router-link v-show="setPermission" :to="`/munienlinea`" class="bn3">
@@ -80,25 +81,25 @@ export default {
 .nav-container {
   color: var(--text-color);
   position: fixed;
-  /* z-index: 15; */
   margin-top: 14vh;
   display: flex;
   flex-direction: column;
   width: 18vw;
   height: 100vh;
-  /* background-color: linear-gradient(0deg, #fff 0%, #d9d9d9 100%); */
   background: #f0f0f0;
   background-image: url("./../../assets/images/FondoNavLuque.svg");
-  opacity: 0.8;
   background-repeat: repeat;
   background-position: inherit;
 }
 .tusGestiones {
   position: relative;
-  top: 8vh;
+  top: 12%;
   height: 15vh;
   width: 100%;
   padding-left: 1.5vw;
+  background-image: url("./../../../public/img/tus-gestiones.png");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .tus {
   position: absolute;
@@ -127,7 +128,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top: 14vh;
+  margin-top: 60%;
   align-items: center;
 }
 .bn3 {
@@ -146,13 +147,13 @@ export default {
 }
 .inpuestos {
   position: relative;
-  top: 5vh;
+  top: 1%;
   width: 13.5vw;
   height: 10vh;
   border-top-right-radius: 20px;
   left: 2vw;
   background-image: linear-gradient(to right, #ffb900 -14.87%, #ff2745 108.09%);
-  padding-left: 1vw;
+  /* padding-left: 1vw; */
   padding-top: 1vh;
   display: flex;
   flex-direction: row;

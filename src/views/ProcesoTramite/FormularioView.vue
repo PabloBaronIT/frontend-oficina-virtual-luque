@@ -5,30 +5,24 @@
         <img
           :src="description"
           alt="Descripción de la imagen"
-          style="max-width: 50px; max-height: 50px"
+          style="max-width: 32px; max-height: 32px"
         />
         {{ this.sectorTitle }}
       </h5>
       <h1 class="tituloPrincipal">
         {{ this.titulo }}
-        <h5>
+        <h4 style="color: #4b4a49; font-weight: 400">
           Ingrese aquí su solicitud en caso de requerir del servicio de <br />
           limpieza en algún lugar en particular <br />
           <!-- //{{ this.descripcion }}// -->
-        </h5>
+        </h4>
       </h1>
     </div>
     <!-- RECUADRO DE INICIO -->
 
-    <div class="progress-container">
-      <div class="progress" id="progress"></div>
-      <div class="circle active">1</div>
-      <div v-for="(item, index) in this.preguntas" :key="index" class="circle">
-        {{ index + 2 }}
-      </div>
-    </div>
     <div class="row" v-if="this.inicio == true">
-      <div class="recuadro row">
+      <RequisitosComponent />
+      <!-- <div class="recuadro row">
         <h5 style="color: #019939; font-weight: 900; font-size: 24px">
           Para iniciar con esta gestión vas a necesitar contar con:
         </h5>
@@ -36,11 +30,22 @@
         <h5>
           . Una descripción de la situación y fotografías, si dispone de ellas.
         </h5>
-      </div>
+      </div> -->
     </div>
     <!-- ------- -->
 
     <div class="row" v-else style="margin-top: 5vh">
+      <div class="progress-container">
+        <div class="progress" id="progress"></div>
+        <div class="circle active">1</div>
+        <div
+          v-for="(item, index) in this.preguntas.length - 1"
+          :key="index"
+          class="circle"
+        >
+          {{ index + 2 }}
+        </div>
+      </div>
       <FormularioComponent
         :questionProp="this.preguntas"
         :nivel="this.nivel"
@@ -68,7 +73,7 @@
         style="display: flex; flex-direction: row"
         @click="
           () => {
-            (this.inicio = false), this.progreso();
+            this.inicio = false;
           }
         "
       >
@@ -81,6 +86,7 @@
 
 <script>
 import FormularioComponent from "@/components/Tramites/Proceso/FormularioComponent.vue";
+import RequisitosComponent from "@/components/MuniEnLinea/RequisitosComponent.vue";
 import axios from "axios";
 import setToken from "@/middlewares/setToken";
 import setTokenRelations from "@/middlewares/setTokenRelations";
@@ -118,6 +124,7 @@ export default {
   },
   components: {
     FormularioComponent,
+    RequisitosComponent,
   },
   created() {
     // Get a los templates de procedures para enviarlos por pro a formulario componente
@@ -221,7 +228,7 @@ export default {
       const actives = document.querySelectorAll(".active");
 
       progress.style.width =
-        ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
+        (actives.length / (circles.length + 1)) * 100 + "%";
     },
   },
   computed: {
@@ -252,10 +259,10 @@ export default {
 }
 
 .progress {
-  background-color: green;
+  background: linear-gradient(90deg, #00c3a8 4.26%, #ffb900 126.04%);
   position: absolute;
   top: 50%;
-  left: 0;
+  /* left: 0; */
   transform: translateY(-50%);
   height: 4px;
   width: 0%;
@@ -277,7 +284,7 @@ export default {
 }
 
 .circle.active {
-  background-image: linear-gradient(90deg, #019939 4.26%, #ffcc03 126.04%);
+  background-image: linear-gradient(90deg, #00c3a8 4.26%, #ffb900 126.04%);
   color: #fff;
 }
 
@@ -308,13 +315,19 @@ export default {
 }
 .tituloPrincipal {
   color: #4b4a49;
-  font-weight: 900;
-  padding-left: 3rem;
-  font-size: 50px;
+  font-weight: 700;
+  font-size: 42px;
+  margin-top: 4vh;
+  font-style: normal;
+  line-height: normal;
 }
 h5 {
   color: #4b4a49;
   font-weight: 400;
+  font-size: 17.5px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 .volver {
   position: absolute;
@@ -330,12 +343,14 @@ h5 {
 }
 
 .volver h4 {
-  /* margin-left: 14px; */
-  color: #808081;
-  font-weight: 100;
-  margin-top: 2.5vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
+  margin-left: 14px;
+  margin-right: 14px;
+  color: #4b4a49;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 1.5vh;
 }
 
 @media (max-width: 800px) {
