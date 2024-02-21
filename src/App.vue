@@ -131,6 +131,19 @@ export default {
     --grey: rgba(70, 70, 70, 0.459);
     --white: #fff;
     --colorpricipal: #128d44;
+    --gradiente: linear-gradient(
+      to right,
+      #ff6928,
+      #ff8219,
+      #ff9a08,
+      #ecab00,
+      #d7b909,
+      #c2c627,
+      #96ca4b,
+      #6ccb6d,
+      #3fc88d,
+      #00c3a8
+    );
   }
 }
 

@@ -56,7 +56,7 @@ h6 {
 }
 .grupoRedes {
   margin-left: 3vw;
-  width: 11vw;
+  width: 10vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -72,7 +72,7 @@ h6 {
   );
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
-  font-size: 40px;
+  font-size: 35px;
 }
 @media (max-width: 1200px) {
   .redes {

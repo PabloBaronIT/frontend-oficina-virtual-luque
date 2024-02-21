@@ -200,10 +200,11 @@ export default {
   width: 100%;
   max-height: 90px;
   background: white;
-  padding: 0.1rem;
+  padding: 3px;
   margin: auto;
   text-align: left;
   cursor: pointer;
+  border: none;
 }
 .cardTramites h5 {
   font-size: 17px;

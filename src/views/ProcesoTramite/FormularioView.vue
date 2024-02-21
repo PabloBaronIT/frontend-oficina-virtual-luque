@@ -1,7 +1,7 @@
 <template>
   <div v-if="setPermission" class="sector-container">
     <div class="row">
-      <h5 style="margin-top: 4vh; margin-left: 4%">
+      <h5 style="margin-top: 4vh">
         <img
           :src="description"
           alt="Descripción de la imagen"
@@ -195,8 +195,8 @@ export default {
     },
     progreso() {
       this.currentActive++;
-      if (this.currentActive > this.preguntas.length) {
-        this.currentActive = this.preguntas.length;
+      if (this.currentActive >= this.preguntas.length) {
+        this.currentActive = this.preguntas.length - 1;
       }
 
       this.update();
@@ -295,7 +295,7 @@ export default {
   position: absolute;
   right: 0;
   padding-top: 10%;
-  padding-bottom: 13%;
+  padding-bottom: 10%;
   /*  */
   padding-left: 4%;
   padding-right: 4%;
@@ -317,7 +317,7 @@ export default {
   color: #4b4a49;
   font-weight: 700;
   font-size: 42px;
-  margin-top: 4vh;
+  margin-top: -1%;
   font-style: normal;
   line-height: normal;
 }
@@ -336,7 +336,7 @@ h5 {
   flex-direction: row;
   justify-content: space-between;
   /* padding: 3.5%; */
-  bottom: 16%;
+  bottom: 12%;
   margin: auto;
   /* right: 4%; */
   /* left: 10%; */
