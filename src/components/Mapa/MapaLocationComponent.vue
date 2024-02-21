@@ -63,7 +63,7 @@ export default {
     asd() {
       this.setTextInput(
         this.markerPosition.lat.toFixed(7),
-        this.markerPosition.lng.toFixed(7),
+        this.markerPosition.lng.toFixed(7)
       );
     },
   },
@@ -79,13 +79,18 @@ p {
   justify-content: space-around;
 }
 .mapa {
-  width: 500px;
+  min-width: 715px;
   height: 360px;
   margin: auto;
 }
 @media (max-width: 800px) {
   .mapContenedor {
-    padding-right: 20%;
+    /* padding-right: 20%; */
+  }
+  .mapa {
+    min-width: 500px;
+    height: 360px;
+    margin: auto;
   }
 }
 </style>

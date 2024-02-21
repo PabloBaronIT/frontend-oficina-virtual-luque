@@ -3,158 +3,149 @@
     <div v-if="this.loading" class="spinner-border" role="status">
       <span></span>
     </div>
-    <!-- <div> -->
+    <!-- TITULO -->
     <div class="topquestion" v-if="this.preguntas">
       <h5>
         {{ this.preguntas[this.paso]?.question?.title }}
       </h5>
     </div>
-    <form action="" style="margin-bottom: 5%">
-      <!--DETALLES DE OPCIONES-->
-      <div
-        :v-if="
-          this.preguntas[this.paso]?.questionOption?.length >= 1 &&
-          this.paso > this.preguntas.length
-        "
-        v-for="(item, index) in this.preguntas[this.paso]?.questionOption"
-        :key="item.id"
-        class="questions"
-      >
-        <!-- INPUT TIPO RADIO -->
-        <div class="tipoRadio" v-if="item.type == 'radio'">
-          <input
-            :name="this.preguntas[this.paso]?.question?.title"
-            :type="item.type"
-            v-model="this.selected"
-            :value="index + 1"
-          />
-          <div>
-            <label :for="item.title" class="option-text">
-              {{ item.title }}</label
-            >
-            <br />
-            <label :for="item.id" class="">
-              {{ item.description }}
-            </label>
-          </div>
-        </div>
-
-        <!-- INPUT TIPO TEXTO -->
-        <div
-          v-if="item.title !== `Indique la ubicación` && item.type === 'text'"
-          class="tipoTexto"
-        >
-          <!-- <label class="option-text">{{ item.title }}</label -->
-          <!-- ><br /> -->
-          <label for=""> {{ item.title }}</label>
-          <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            style="width: 27vw; margin-left: 1rem"
-            v-model="this.textInput"
-          ></textarea>
-        </div>
-        <div
-          v-if="item.title !== `Indique la ubicación` && item.type === 'number'"
-          class="tipoTexto"
-          style="align-items: center"
-        >
-          <!-- <label class="option-text">{{ item.title }}</label -->
+    <!--DETALLES DE OPCIONES-->
+    <div
+      :v-if="
+        this.preguntas[this.paso]?.questionOption?.length >= 1 &&
+        this.paso > this.preguntas.length
+      "
+      v-for="(item, index) in this.preguntas[this.paso]?.questionOption"
+      :key="item.id"
+      class="questions"
+    >
+      <!-- INPUT TIPO RADIO -->
+      <div class="tipoRadio" v-if="item.type == 'radio'">
+        <input
+          :name="this.preguntas[this.paso]?.question?.title"
+          :type="item.type"
+          v-model="this.selected"
+          :value="index + 1"
+        />
+        <div>
+          <label :for="item.title" class="option-text"> {{ item.title }}</label>
           <br />
-          <label for="">
+          <label :for="item.id" class="">
             {{ item.description }}
           </label>
-          <input
-            class="form-control text-number-input"
-            style="width: 27vw"
-            :type="item.type"
-            v-model="this.textInput"
-          />
-        </div>
-        <!-- PARA VER MAPA Y PODER ESCRIBIR DIRECCION -->
-        <div
-          v-if="item.type == 'text' && item.title == `Indique la ubicación`"
-          class="tipoMap"
-        >
-          <div class="inputCalle">
-            <label>Calle</label>
-            <input
-              class="form-control text-number-input"
-              :type="item.type"
-              v-model="this.calle"
-            />
-            <label>Nro.</label>
-            <input
-              class="form-control text-number-input"
-              type="number"
-              v-model="this.numero"
-            />
-          </div>
-          <div class="entreCalles">
-            <label>Entre calles</label>
-            <input
-              class="form-control text-number-input"
-              :type="item.type"
-              v-model="this.entrecalles"
-            />
-          </div>
-
-          <!-- <label>{{ item.title }}</label
-          ><br />
-          <label for=""> {{ item.description }}</label> -->
-          <MapaLocationComponentVue :setTextInput="this.setTextInput" />
-        </div>
-
-        <!-- INPUT TIPO FILE -->
-
-        <div v-if="item.type == 'file'" class="file-container">
-          <div v-if="!asd" class="file-intro">
-            <img
-              alt=""
-              id="img-preview"
-              class="imgFile"
-              v-if="this.fileSelect"
-            />
-            <i class="bi bi-upload" style="font-size: 35px" v-else></i>
-
-            <hr />
-            <input
-              accept=".jpg, .jpeg, .png, .webp"
-              :type="item.type"
-              v-model="this.fileSelect"
-              id="img-uploader"
-              @change="selectFile($event)"
-            />
-
-            <!--INPUT PARA SUBIR EL ARCHIVO-->
-            <div>
-              <input
-                v-if="this.fileSelect"
-                class="m-2 btn btnColor"
-                type="button"
-                value="Subir archivo"
-                @click="postFile()"
-              />
-            </div>
-          </div>
-          <div v-else class="cargado">
-            <img
-              src="@/assets/images/red-check-mark-icon.svg"
-              alt=""
-              id="img-preview"
-              class="imgFile"
-            />
-            <p>Archivo cargado</p>
-          </div>
         </div>
       </div>
 
-      <p class="error" v-show="validation == false">
-        Debe seleccionar una opcion para continuar
-      </p>
-    </form>
+      <!-- INPUT TIPO TEXTO -->
+      <div
+        v-if="item.title !== `Indique la ubicación` && item.type === 'text'"
+        class="tipoTexto"
+      >
+        <!-- <label class="option-text">{{ item.title }}</label -->
+        <!-- ><br /> -->
+        <label for=""> {{ item.title }}</label>
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          v-model="this.textInput"
+        ></textarea>
+      </div>
+      <div
+        v-if="item.title !== `Indique la ubicación` && item.type === 'number'"
+        class="tipoTexto"
+        style="align-items: center"
+      >
+        <!-- <label class="option-text">{{ item.title }}</label -->
+        <br />
+        <label for="">
+          {{ item.description }}
+        </label>
+        <input
+          class="form-control text-number-input"
+          style="width: 27vw"
+          :type="item.type"
+          v-model="this.textInput"
+        />
+      </div>
+      <!-- PARA VER MAPA Y PODER ESCRIBIR DIRECCION -->
+      <div
+        v-if="item.type == 'text' && item.title == `Indique la ubicación`"
+        class="tipoMap"
+      >
+        <div class="inputCalle">
+          <label>Calle</label>
+          <input
+            class="form-control text-number-input"
+            :type="item.type"
+            v-model="this.calle"
+          />
+          <label>Nro.</label>
+          <input
+            class="form-control text-number-input"
+            type="number"
+            v-model="this.numero"
+          />
+        </div>
+        <div class="entreCalles">
+          <label>Entre calles</label>
+          <input
+            class="form-control text-number-input"
+            :type="item.type"
+            v-model="this.entrecalles"
+          />
+        </div>
+
+        <!-- <label>{{ item.title }}</label
+          ><br />
+          <label for=""> {{ item.description }}</label> -->
+        <MapaLocationComponentVue :setTextInput="this.setTextInput" />
+      </div>
+
+      <!-- INPUT TIPO FILE -->
+
+      <div v-if="item.type == 'file'" class="file-container">
+        <div v-if="!asd" class="file-intro">
+          <img alt="" id="img-preview" class="imgFile" v-if="this.fileSelect" />
+          <i class="bi bi-upload" style="font-size: 35px" v-else></i>
+
+          <hr />
+          <input
+            accept=".jpg, .jpeg, .png, .webp"
+            :type="item.type"
+            v-model="this.fileSelect"
+            id="img-uploader"
+            @change="selectFile($event)"
+          />
+
+          <!--INPUT PARA SUBIR EL ARCHIVO-->
+          <div>
+            <input
+              v-if="this.fileSelect"
+              class="m-2 btn btnColor"
+              type="button"
+              value="Subir archivo"
+              @click="postFile()"
+            />
+          </div>
+        </div>
+        <div v-else class="cargado">
+          <img
+            src="@/assets/images/red-check-mark-icon.svg"
+            alt=""
+            id="img-preview"
+            class="imgFile"
+          />
+          <p>Archivo cargado</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="error" v-show="validation == false">
+      Debe seleccionar una opcion para continuar
+    </p>
+    <!-- </form> -->
     <!-- <div class="btn-div">
       <input
         class="boton"
@@ -225,8 +216,9 @@
         @click="ver"
       /> -->
     </div>
-    <!-- </div> -->
-    <!-- MODAL DE VISTA DE SERVICIO PRESENTADO -->
+    <div class="modal-dialog modal-dialog-centered" v-if="this.modalReclamo">
+      <h1>TRAMITE PRESENTADO EXITOSAMENTE</h1>
+    </div>
   </div>
 </template>
 
@@ -539,10 +531,11 @@ export default {
                   this.$router.push(`/pago/${idTramite}`);
                 }, 2000);
               } else {
-                alert(
-                  "Su reclamo fue presentado! Gracias por utilizar nuestra Oficina Virtual"
-                );
-                this.$router.push(`/munienlinea`);
+                // alert(
+                //   "Su reclamo fue presentado! Gracias por utilizar nuestra Oficina Virtual"
+                // );
+                // this.$router.push(`/munienlinea`);
+                this.setModal();
               }
               this.dispatchClean();
               this.dispatchProcedure();
@@ -615,6 +608,11 @@ export default {
 
 <style scoped>
 /* CSS NUEVO */
+.contenedor {
+  margin-bottom: 10%;
+  /* width: 75%; */
+  margin: auto;
+}
 .btnColor {
   background-image: linear-gradient(90deg, #019939 4.26%, #ffcc03 126.04%);
   color: white;
@@ -632,7 +630,7 @@ h5 {
   flex-direction: row;
   justify-content: space-between;
   padding: 3.5%;
-  bottom: 8%;
+  bottom: 7%;
 }
 
 .volver h4 {
@@ -647,41 +645,68 @@ h5 {
   margin-top: 1.5vh;
 }
 .tipoMap {
-  padding: 1rem;
+  /* padding: 1%; */
+  width: 82%;
+  margin: auto;
+  margin-bottom: 10%;
 }
 .tipoMap input {
-  width: 20vw;
-  margin-left: 1rem;
+  width: 35%;
+  /* margin-left: 1rem; */
   border-radius: 10px;
   margin-top: 1rem;
 }
 .tipoMap label {
   padding-top: 1rem;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   font-weight: 700;
 }
 .questions {
   display: flex;
   flex-direction: column;
   margin-bottom: 8%;
-  padding-left: 1rem;
-  width: 50%;
+  /* padding-left: 1rem; */
+  width: 100%;
   margin: auto;
   /* background: white; */
 }
 
 .topquestion {
-  padding-left: 3rem;
+  /* padding-left: 3rem; */
   padding-top: 1rem;
   margin: auto;
   height: 5rem;
-  width: 50vw;
+  width: 80%;
+}
+.topquestion h5 {
+  color: #019939;
+
+  font-size: 21.88px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 .tipoTexto {
-  height: 7rem;
-  padding: 1rem;
+  /* height: 7rem; */
+  /* padding: 1rem; */
   display: flex;
   flex-direction: row;
+  align-items: center;
+  width: 82%;
+  margin: auto;
+  margin-bottom: 10%;
+}
+.tipoTexto label {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.tipoTexto textarea {
+  width: 70%;
+  border-radius: 12px;
+  margin-left: 2%;
+  /* height: 270px; */
 }
 
 .tipoTexto input[type="number"] {
@@ -700,10 +725,10 @@ h5 {
   margin-top: 1rem;
 }
 .error {
-  color: var(--red);
+  color: #00c3a8;
   text-align: center;
-  font-size: 27px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 400;
 }
 .tipoRadio {
   display: flex;
@@ -718,7 +743,7 @@ h5 {
 .botonSubmit {
   width: 100px;
   height: 45px;
-  background-color: var(--green);
+  background-color: #00c3a8;
   border-radius: 20px 20px 0px 0px;
   color: white;
   margin-left: 1rem;
@@ -730,11 +755,19 @@ h5 {
   justify-content: space-between;
   align-items: center;
 }
+.inputCalle input {
+  width: 40%;
+  margin-left: -4%;
+}
 .entreCalles {
   margin-bottom: 4vh;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.entreCalles input {
+  width: 87%;
+  margin-left: 1%;
 }
 /* ---------- */
 
@@ -871,7 +904,7 @@ h5 {
   }
 }
 
-/* 
+/*
 
 
 

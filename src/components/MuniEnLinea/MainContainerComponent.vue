@@ -406,8 +406,9 @@ h5 {
   border-radius: 8px;
   background-color: white;
   text-align: left;
-  padding: 0.1rem;
+  padding: 3px;
   margin: auto;
+  border: none;
 }
 .card h5 {
   font-size: 18px;
