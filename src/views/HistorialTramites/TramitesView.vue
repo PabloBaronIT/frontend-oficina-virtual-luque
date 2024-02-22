@@ -2,7 +2,7 @@
   <div class="sector-container" v-if="setPermission && !this.loading">
     <h1 class="tituloPrincipal">
       Presentadas
-      <h4 style="color: #4b4a49; font-weight: 100">
+      <h4 style="color: #4b4a49; font-weight: 400; margin-top: 1rem">
         Gestiones presentadas hasta la fecha.
       </h4>
     </h1>
@@ -74,9 +74,11 @@ main {
 }
 .tituloPrincipal {
   color: #4b4a49;
-  font-weight: 900;
-  font-size: 50px;
+  font-weight: 700;
+  font-size: 42px;
   margin-top: 4vh;
+  font-style: normal;
+  line-height: normal;
 }
 .prueba-container {
   display: flex;

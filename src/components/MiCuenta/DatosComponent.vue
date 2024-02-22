@@ -386,9 +386,11 @@ export default {
 /* CSS NUEVO */
 .tituloPrincipal {
   color: #4b4a49;
-  font-weight: 900;
-  font-size: 50px;
-  margin-top: 7vh;
+  font-weight: 700;
+  font-size: 42px;
+  margin-top: 4vh;
+  font-style: normal;
+  line-height: normal;
 }
 .boxIzquierdo {
   height: 47vh;
@@ -438,8 +440,12 @@ h5 {
 }
 .volver h4 {
   margin-left: 14px;
-  color: #808081;
-  font-weight: 100;
+  margin-right: 14px;
+  color: #4b4a49;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
   margin-top: 1.5vh;
 }
 .datos-container {

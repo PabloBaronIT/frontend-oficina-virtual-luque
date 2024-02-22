@@ -86,15 +86,30 @@
         />
       </router-link>
       <div style="display: flex; flex-direction: row">
-        <router-link :to="`/notificaciones`">
-          <div class="botonNotificacion">
-            <i class="bi bi-bell"> </i>
-          </div>
-        </router-link>
+        <!-- <router-link :to="`/notificaciones`"> -->
+        <div
+          class="botonNotificacion"
+          @click="
+            () => {
+              this.modalNotificacion = !this.modalNotificacion;
+              if (!this.notificacion) this.getNotifications();
+            }
+          "
+        >
+          <i class="bi bi-bell"> </i>
+        </div>
+        <!-- </router-link> -->
         <div class="botonOut" @click="this.logOf">
           <i class="bi bi-power"></i>
         </div>
       </div>
+    </div>
+    <div
+      v-if="this.modalNotificacion && this.notificacion"
+      class="modalNotificacion"
+    >
+      <p>Tu última Notificación:</p>
+      <h6>{{ notificacion?.message }}</h6>
     </div>
   </div>
 </template>
@@ -109,29 +124,18 @@ export default {
   data() {
     return {
       ruta: this.$router.currentRoute.value.fullPath,
-      //usuario: localStorage.getItem("firstname"),
-      //apellido: localStorage.getItem("lastname"),
-      //dni: localStorage.getItem("cuil"),
       permission: true,
-      //user_id: localStorage.getItem("id"),
-      //role: localStorage.getItem("role"),
       user: "",
       representante: "",
       avatar: this.$store.state.user?.avatar,
-      lengtNotifications: 0,
-      notificationNew: false,
       notificacion: null,
-      // modalNotificacion: false,
+      modalNotificacion: false,
       // ||
       // "https://res.cloudinary.com/ddko88otf/image/upload/v1692727232/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv_t3fopl.jpg",
     };
   },
 
   created() {
-    // setInterval(() => {
-    // this.getNotifications();
-    // }, 60000 * 2); //cada 3 minutos pregunta a la api
-
     this.role = this.$store.state.user?.role;
     this.getMyProfile();
     let idRepresentante = localStorage.getItem("idRepresentante") || null;
@@ -139,24 +143,8 @@ export default {
       this.getRepresentante(idRepresentante);
     }
   },
-  // watch: {
-  //   lengtNotifications(newValue, olValue) {
-  //     // if (newValue > olValue) {
-  //     //   this.notificationNew = true;
-  //     // }
-  //     if (newValue > olValue) {
-  //       this.notificationNew = true;
-  //     }
-  //   },
-  // },
 
   methods: {
-    // SentNotificacion() {
-    //   console.log("hola notifiacion");
-    //   if (this.notificacion != null) {
-    //     this.modalNotificacion = true;
-    //   }
-    // },
     dispatchLogin() {
       this.$store.dispatch("mockLoginAction", this.user);
     },
@@ -243,12 +231,13 @@ export default {
         .get("/communications/my-communications?page=1")
         .then((response) => {
           console.log(response.data, "soy las notificaciones");
-          let asd = response.data.Communications;
-          let sinleer = [];
-          for (let index = 0; index < asd.length; index++) {
-            if (asd[index]?.read === false) sinleer.push(asd[index]);
-          }
-          this.lengtNotifications = sinleer.length;
+          this.notificacion = response.data.Communications[0];
+          console.log(this.notificacion, "soy la ultima notificacion");
+          // let sinleer = [];
+          // for (let index = 0; index < asd.length; index++) {
+          //   if (asd[index]?.read === false) sinleer.push(asd[index]);
+          // }
+          // this.lengtNotifications = sinleer.length;
           // if (
           //   this.lengtNotifications != response.data?.Communications?.length
           // ) {
@@ -337,47 +326,6 @@ export default {
     dispatchOutLogin() {
       this.$store.dispatch("mockOutAction");
     },
-
-    // changeRepresentative() {
-    //   console.log("cambiew");
-    //   const apiClient = axios.create({
-    //     //baseURL: "https://oficina-virtual-pablo-baron.up.railway.app/",
-    //     baseURL: process.env.VUE_APP_BASEURL,
-    //     withCredentials: false,
-    //     headers: {
-    //       "auth-header": localStorage.getItem("tokenCopia"),
-    //     },
-    //   });
-    //   apiClient
-    //     .post("/representations/choose-representation", {
-    //       representativeId: this.$store.state.RepresentativeUser.id,
-    //     })
-    //     .then((response) => {
-    //       console.log(response.data.message);
-    //       window.localStorage.removeItem("token");
-    //       window.localStorage.setItem("token", response.data.token);
-    //       this.getProfile();
-    //       setTimeout(() => this.$router.push("munienlinea"), 2000);
-    //       this.dispatchClearRepresentativeUser();
-    //       //this.dispatchRepresentative();
-    //       //this.dispachSaveRepresentativeUser();
-    //     });
-    // },
-    // getProfile() {
-    //   const apiClient = axios.create({
-    //     //baseURL: "https://oficina-virtual-pablo-baron.up.railway.app/",
-    //     baseURL: process.env.VUE_APP_BASEURL,
-    //     withCredentials: false,
-    //     headers: {
-    //       "auth-header": localStorage.getItem("token"),
-    //     },
-    //   });
-    //   apiClient.get("/oficina/user/profile").then((response) => {
-    //     this.user = response.data.UserProfile.user;
-    //     console.log(this.user);
-    //     this.dispatchProfile();
-    //   });
-    // },
   },
 };
 </script>
@@ -395,13 +343,11 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  /* padding-top: 1rem;
-  padding-left: 0; */
+
   padding: 2% 0% 1%;
 }
 .imagenlogo {
   width: 80%;
-  /* height: 10vh; */
   min-height: 58px;
   position: relative;
   margin-left: 2.6vw;
@@ -439,16 +385,7 @@ export default {
   color: #00c3a8;
   width: 360px;
 }
-.sinleer {
-  position: absolute;
-  top: 20%;
-  left: 65%;
-  font-size: 24px;
-  background: red;
-  border-radius: 50%;
-  height: 15px;
-  width: 15px;
-}
+
 .botonNotificacion {
   position: relative;
   height: 52px;
@@ -474,7 +411,6 @@ export default {
   height: 52px;
   width: 52px;
   border-radius: 50%;
-  /* background: red; */
   background-image: linear-gradient(
     to right,
     #ffcc03,
@@ -510,14 +446,25 @@ a {
   cursor: pointer;
   color: #128d44;
 }
-h5,
-p {
+h5 {
   color: #ff2745;
+}
+.modalNotificacion {
+  position: absolute;
+  border-radius: 32px;
+  background: #fff;
+  right: 5%;
+  top: 75%;
+  width: 300px;
+  height: auto;
+  z-index: 5;
+  text-align: center;
+  padding: 2%;
+  border: solid 1px #00c3a8;
 }
 /* ------------------------------------------------------------ */
 @media (max-width: 1200px) {
   .muniEnlinea {
-    /* justify-content: space-around; */
     width: 25vw;
   }
 }
@@ -534,7 +481,6 @@ p {
     width: 15vw;
   }
   .muniEnlinea {
-    /* justify-content: space-around; */
     width: 40vw;
   }
 }
@@ -567,7 +513,6 @@ p {
     cursor: pointer;
   }
   .muniEnlinea {
-    /* justify-content: space-around; */
     width: 50vw;
   }
 }

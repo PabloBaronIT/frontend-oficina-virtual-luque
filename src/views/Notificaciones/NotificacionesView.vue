@@ -2,7 +2,7 @@
   <div class="sector-container" v-if="setPermission && !this.loading">
     <h1 class="tituloPrincipal">
       Notificaciones
-      <h4 style="color: #4b4a49; font-weight: 100">
+      <h4 style="color: #4b4a49; font-weight: 400; margin-top: 1rem">
         Échale un vistazo a tus notificaciones hasta la fecha.
       </h4>
     </h1>
@@ -306,8 +306,10 @@ export default {
 .tituloPrincipal {
   color: #4b4a49;
   font-weight: 700;
-  font-size: 50px;
+  font-size: 42px;
   margin-top: 4vh;
+  font-style: normal;
+  line-height: normal;
   /* margin-top: 7vh; */
   /* margin-left: 4vw; */
 }
@@ -408,8 +410,12 @@ h5 {
 }
 .volver h4 {
   margin-left: 14px;
-  color: #808081;
-  font-weight: 100;
+  margin-right: 14px;
+  color: #4b4a49;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
   margin-top: 1.5vh;
 }
 .prueba-container {
