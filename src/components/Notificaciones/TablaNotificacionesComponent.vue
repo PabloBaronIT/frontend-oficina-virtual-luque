@@ -145,6 +145,11 @@ export default {
   box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.25);
   border-top-right-radius: 20px;
 }
+
+.modal-dialog {
+  max-width: 900px;
+  max-height: 353px;
+}
 .divTitulos {
   /* display: flex;
   flex-direction: row;

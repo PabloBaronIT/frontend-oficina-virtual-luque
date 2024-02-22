@@ -120,6 +120,7 @@ export default {
       descripcion: "",
       titulo: "",
       currentActive: 0,
+      sector: "",
     };
   },
   components: {
@@ -168,10 +169,11 @@ export default {
           console.log("este es el description:", this.description);
           // parseInt(r.id);
           // console.log(this.procedureId, "soy el procedureId");
-
           procedure.title = response.data.Template.title;
           procedure.precio = response.data.Template.price;
           this.titulo = response.data.Template.title;
+          this.sector = response.data.Template.category.title;
+
           // this.length = r.question.length;
         })
         .catch((error) => {

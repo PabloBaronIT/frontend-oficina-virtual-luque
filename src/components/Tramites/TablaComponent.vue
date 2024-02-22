@@ -1202,7 +1202,7 @@ export default {
 
 .volver {
   position: absolute;
-  bottom: 10%;
+  bottom: 12%;
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -1212,8 +1212,12 @@ export default {
 
 .volver h4 {
   margin-left: 14px;
-  color: #808081;
-  font-weight: 100;
+  margin-right: 14px;
+  color: #4b4a49;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: normal;
   margin-top: 1.5vh;
 }
 
