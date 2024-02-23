@@ -18,19 +18,10 @@
         </h4>
       </h1>
     </div>
-    <!-- RECUADRO DE INICIO -->
+    <!-- RECUADRO DE INICIO MUESTRA CADA REQUISITO EN ESPECIFICO PARA CADA TRAMITE-->
 
     <div class="row" v-if="this.inicio == true">
       <RequisitosComponent />
-      <!-- <div class="recuadro row">
-        <h5 style="color: #019939; font-weight: 900; font-size: 24px">
-          Para iniciar con esta gestión vas a necesitar contar con:
-        </h5>
-        <h5>. Ubicación exacta del lugar donde se requiere el servicio.</h5>
-        <h5>
-          . Una descripción de la situación y fotografías, si dispone de ellas.
-        </h5>
-      </div> -->
     </div>
     <!-- ------- -->
 
@@ -252,7 +243,6 @@ export default {
   display: flex;
   justify-content: space-between;
   position: relative;
-  /* margin-bottom: 30px; */
   min-width: 10vw;
   width: 10vw;
   margin: auto;
@@ -264,7 +254,6 @@ export default {
   background: linear-gradient(90deg, #00c3a8 4.26%, #ffb900 126.04%);
   position: absolute;
   top: 50%;
-  /* left: 0; */
   transform: translateY(-50%);
   height: 4px;
   width: 0%;
@@ -306,7 +295,6 @@ export default {
   background: #fff;
   width: 70%;
   height: 20%;
-  /* margin-left: 25%; */
   margin: auto;
   text-align: center;
   padding: 4%;
@@ -337,11 +325,8 @@ h5 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* padding: 3.5%; */
   bottom: 12%;
   margin: auto;
-  /* right: 4%; */
-  /* left: 10%; */
 }
 
 .volver h4 {
@@ -361,14 +346,11 @@ h5 {
     font-size: 40px;
   }
   .recuadro {
-    /* height: 10%; */
     width: 90%;
   }
   .sector-container {
     width: 100%;
-    /* height: 100%; */
     padding-top: 15%;
-    /* padding-bottom: 15%; */
   }
   .volver {
     bottom: 12%;

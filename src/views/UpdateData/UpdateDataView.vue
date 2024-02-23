@@ -367,39 +367,39 @@ export default {
           this.dispatchLogin();
           window.localStorage.setItem(
             "role",
-            response.data.UserProfile.user.role || null,
+            response.data.UserProfile.user.role || null
           );
           window.localStorage.setItem(
             "name",
-            response.data.UserProfile.user.firstname || null,
+            response.data.UserProfile.user.firstname || null
           );
           window.localStorage.setItem(
             "lastname",
-            response.data.UserProfile.user.lastname || null,
+            response.data.UserProfile.user.lastname || null
           );
           window.localStorage.setItem(
             "cuil",
-            response.data.UserProfile.user.cuil || null,
+            response.data.UserProfile.user.cuil || null
           );
           window.localStorage.setItem(
             "adress",
-            response.data.UserProfile.user.adress || null,
+            response.data.UserProfile.user.adress || null
           );
           window.localStorage.setItem(
             "email",
-            response.data.UserProfile.user.email || null,
+            response.data.UserProfile.user.email || null
           );
           window.localStorage.setItem(
             "id",
-            response.data.UserProfile.user.id || null,
+            response.data.UserProfile.user.id || null
           );
           window.localStorage.setItem(
             "fecha-creacion",
-            response.data.UserProfile.user.created_at || null,
+            response.data.UserProfile.user.created_at || null
           );
           window.localStorage.setItem(
             "nivel",
-            response.data.UserProfile.user.level.level || null,
+            response.data.UserProfile.user.level.level || null
           );
 
           this.loading = false;
@@ -429,13 +429,6 @@ export default {
 </script>
 <style scoped>
 .container {
-  /* width: 100%;
-  min-height: 100vh;
-
-  background: #f5f5f5;
-  padding: 5rem 3rem;
-  align-items: center; */
-
   width: 82%;
   background-color: #f5f5f5;
   position: absolute;

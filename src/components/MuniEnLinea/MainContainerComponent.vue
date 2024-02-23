@@ -75,7 +75,6 @@
       </div>
     </div>
     <!-- OTRAS GESTIONES -->
-    <!-- <div class="otrosTramites"> -->
     <div class="gestiones">
       <h5>Si no encontrás tu gestión o tenés dudas, ingresá aquí</h5>
       <svg
@@ -95,7 +94,6 @@
       </svg>
       <button class="botonGestiones"><h5>Otras gestiones</h5></button>
     </div>
-    <!-- </div> -->
     <!-- RENTAS Y AFIP, ETC -->
     <div class="accesos">
       <h5>

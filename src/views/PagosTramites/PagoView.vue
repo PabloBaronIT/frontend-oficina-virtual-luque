@@ -168,7 +168,6 @@ export default {
   components: { PagarComponent },
   methods: {
     download() {
-      // window.print();
       let asd = document.getElementById("content");
       var doc = new jsPDF({
         orientation: "p",
