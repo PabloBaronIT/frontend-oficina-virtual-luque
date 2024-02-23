@@ -19,15 +19,13 @@
     <div v-if="msj" class="sinTramites">
       <h2>No hay trámites para esta categoría por el momento</h2>
     </div>
+    <!-- SE MUESTRAN LOS TRAMITES CORREPONDIENTES A CADA CATEGORIA -->
     <div class="tramites">
       <div
         v-for="tramite in tramitesApi"
         :key="tramite.id"
         class="cardTramites"
       >
-        <!-- <div class="divTitleImag"> -->
-        <!-- <img src="@/assets/tramite-logo.svg" :alt="tramite.id" /> -->
-        <!-- <div class="divTitle"> -->
         <div v-if="tramite.level.level <= this.nivel" class="card-body">
           <router-link
             :to="`/formulario/cuestionario/${tramite.title}/${tramite.id}?sectorTitle=${this.$route.params.sectorTitle}&sectorId=${this.$route.params.sectorId}`"

@@ -84,9 +84,6 @@ p {
   margin: auto;
 }
 @media (max-width: 800px) {
-  .mapContenedor {
-    /* padding-right: 20%; */
-  }
   .mapa {
     min-width: 500px;
     height: 360px;

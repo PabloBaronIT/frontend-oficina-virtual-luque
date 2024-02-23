@@ -77,18 +77,8 @@
           </h4>
           <ol>
             <li v-for="(item, index) in this.pasos" :key="index">
-              <!-- <i
-                class="bi bi-circle-fill"
-                style="color: #00c3a8; width: 2px"
-              ></i> -->
               {{ item }}
             </li>
-            <!-- <li>
-              Ubicación exacta del lugar donde se encuentra el desperfecto.
-            </li>
-            <li>
-              Una descripción de la situación e incluso puede subir una foto.
-            </li> -->
           </ol>
         </div>
       </div>
@@ -96,6 +86,9 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import { BASE_URL } from "@/env";
+
 export default {
   name: "RequisitosComponent",
   data() {
@@ -109,6 +102,21 @@ export default {
         "Aguarda la comunicación del Municipio sobre la resolución del trámite",
       ],
     };
+  },
+  methods: {
+    getRequisitos() {
+      const apiClient = axios.create({
+        baseURL: BASE_URL,
+        withCredentials: false,
+        headers: {
+          "auth-header": localStorage.getItem("token"),
+        },
+      });
+      apiClient.get("").then((response) => {
+        console.log(response);
+        this.pasos.push(response.data);
+      });
+    },
   },
 };
 </script>
