@@ -157,7 +157,6 @@ export default {
           procedure.procedureId = response.data.Template.id;
           this.description = response.data.Template.category?.description || "";
           console.log("este es el descripcion:", this.descripcion);
-          console.log("este es el description:", this.description);
           // parseInt(r.id);
           // console.log(this.procedureId, "soy el procedureId");
           procedure.title = response.data.Template.title;

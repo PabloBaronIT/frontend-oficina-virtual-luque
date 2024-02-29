@@ -1,18 +1,16 @@
 <template>
-  <main class="sector-container" v-if="setPermission">
-    <Sector />
-  </main>
+  <div class="subcategoria-container" v-if="setPermission">
+    <SubCategoriaComponent />
+  </div>
 </template>
-
 <script>
-import Sector from "../../components/MuniEnLinea/SectorComponent.vue";
+import SubCategoriaComponent from "@/components/MuniEnLinea/SubCategoriaComponent.vue";
 
 export default {
-  name: "SectorView",
+  name: "SubCategoriasView",
   components: {
-    Sector,
+    SubCategoriaComponent,
   },
-
   computed: {
     setPermission() {
       if (this.$store.state.loggedIn === true) {
@@ -22,25 +20,22 @@ export default {
       }
     },
   },
+  created() {
+    if (!this.setPermission) {
+      this.$router.push("/login");
+    }
+  },
 };
 </script>
-
 <style scoped>
-.sector-container {
+.subcategoria-container {
   width: 82%;
   background-color: #f5f5f5;
   position: absolute;
   right: 0;
   padding-top: 10%;
-  padding-bottom: 10%;
+  padding-bottom: 8%;
   padding-left: 4%;
   padding-right: 4%;
-}
-@media (max-width: 800px) {
-  .sector-container {
-    width: 100%;
-    height: 100%;
-    padding-top: 15%;
-  }
 }
 </style>
