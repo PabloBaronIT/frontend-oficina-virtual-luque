@@ -20,11 +20,11 @@ export default {
       }
     },
   },
-  created() {
-    if (!this.setPermission) {
-      this.$router.push("/login");
-    }
-  },
+  // created() {
+  //   if (!this.setPermission) {
+  //     this.$router.push("/login");
+  //   }
+  // },
 };
 </script>
 <style scoped>

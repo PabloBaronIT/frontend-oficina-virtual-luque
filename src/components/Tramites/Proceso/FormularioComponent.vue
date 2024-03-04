@@ -20,19 +20,23 @@
       class="questions"
     >
       <!-- INPUT TIPO RADIO -->
-      <div class="tipoRadio" v-if="item.type == 'radio'">
-        <input
-          :name="this.preguntas[this.paso]?.question?.title"
-          :type="item.type"
-          v-model="this.selected"
-          :value="index + 1"
-        />
-        <div>
-          <label :for="item.title" class="option-text"> {{ item.title }}</label>
-          <br />
-          <label :for="item.id" class="">
-            {{ item.description }}
-          </label>
+      <div v-if="item.type == 'radio'" class="optionsRadio">
+        <div class="tipoRadio">
+          <input
+            :name="this.preguntas[this.paso]?.question?.title"
+            :type="item.type"
+            v-model="this.selected"
+            :value="index + 1"
+          />
+          <div>
+            <label :for="item.title" class="option-text">
+              {{ item.title }}</label
+            >
+            <br />
+            <label :for="item.id" class="">
+              {{ item.description }}
+            </label>
+          </div>
         </div>
       </div>
 
@@ -608,8 +612,15 @@ export default {
 
 <style scoped>
 /* CSS NUEVO */
+.optionsRadio {
+  padding-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
 .contenedor {
   margin-bottom: 10%;
+  padding-bottom: 5%;
   /* width: 75%; */
   margin: auto;
 }
@@ -664,11 +675,10 @@ h5 {
 .questions {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8%;
+  margin-bottom: 10%;
   /* padding-left: 1rem; */
   width: 100%;
   margin: auto;
-  /* background: white; */
 }
 
 .topquestion {
@@ -809,7 +819,8 @@ h5 {
   align-items: center;
   width: 100%;
   justify-content: center;
-  margin-bottom: 10rem;
+  margin-top: 2%;
+  /* margin-bottom: 10rem; */
 }
 
 .btn-div {
