@@ -605,7 +605,7 @@ export default {
         .then((response) => {
           let h = response.data.MyProcedures;
 
-          console.log(response + "mis tramites");
+          console.log(h + "mis tramites");
           this.l = h.length;
 
           for (let i = 0; i < h.length; i++) {

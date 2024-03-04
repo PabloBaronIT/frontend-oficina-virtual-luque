@@ -20,10 +20,40 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/auth/reset-password/:token",
+    name: "reset-password",
+    component: () => import("@/views/ResetView.vue"),
+    meta: { requiresAuth: false },
+  },
+  {
+    path: "/pago/:idTramite",
+    name: "pago",
+    component: () => import("@/views/PagosTramites/PagoView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/pago-resultado",
+    name: "pago-resultado",
+    component: () => import("@/views/PagoVista/pagoResultadoView.vue"),
+  },
+  {
+    //PARA VISTA DE SUBACTEGORIA
+    path: "/sector/:sectorTitle/:sectorId/:tramiteId",
+    name: "subCategoria",
+    component: () => import("../views/ProcesoTramite/SubCategoriaView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     //SectorTitle se pasa unicamente como prop para header de la vista
     path: "/sector/:sectorTitle/:sectorId",
     name: "sector",
     component: () => import("../views/ProcesoTramite/SectorView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/formulario/cuestionario/:formularioTitle/:formularioId",
+    name: "formulario",
+    component: () => import("@/views/ProcesoTramite/FormularioView.vue"),
     meta: { requiresAuth: true },
   },
   {
@@ -38,23 +68,7 @@ const routes = [
     component: () => import("@/views/Notificaciones/NotificacionesView.vue"),
     meta: { requiresAuth: true },
   },
-  {
-    path: "/pago/:idTramite",
-    name: "pago",
-    component: () => import("@/views/PagosTramites/PagoView.vue"),
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/pago-resultado",
-    name: "pago-resultado",
-    component: () => import("@/views/PagoVista/pagoResultadoView.vue"),
-  },
-  {
-    path: "/formulario/cuestionario/:formularioTitle/:formularioId",
-    name: "formulario",
-    component: () => import("@/views/ProcesoTramite/FormularioView.vue"),
-    meta: { requiresAuth: true },
-  },
+
   {
     path: "/micuenta",
     name: "micuenta",
@@ -71,12 +85,6 @@ const routes = [
     path: "/crear-cuenta",
     name: "createUser",
     component: () => import("@/views/CreateUserOfi/CuentaUsuarioView.vue"),
-    meta: { requiresAuth: false },
-  },
-  {
-    path: "/auth/reset-password/:token",
-    name: "reset-password",
-    component: () => import("@/views/ResetView.vue"),
     meta: { requiresAuth: false },
   },
 ];

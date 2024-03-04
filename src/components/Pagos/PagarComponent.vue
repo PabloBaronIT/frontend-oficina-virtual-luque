@@ -155,7 +155,8 @@ export default {
   /* flex-flow: row wrap; */
   /* flex-direction: row; */
   height: 150px;
-  width: 50%;
+  width: 60%;
+  margin-bottom: 5%;
 }
 
 .text {

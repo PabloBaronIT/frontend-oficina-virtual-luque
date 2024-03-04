@@ -178,6 +178,7 @@ ol li::before {
   width: 20px;
   height: 20px;
   margin-left: -4%;
+  margin-right: 1%;
 }
 
 p {

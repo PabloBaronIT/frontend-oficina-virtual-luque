@@ -27,8 +27,15 @@
         class="cardTramites"
       >
         <div v-if="tramite.level.level <= this.nivel" class="card-body">
-          <router-link
+          <!-- <router-link
             :to="`/formulario/cuestionario/${tramite.title}/${tramite.id}?sectorTitle=${this.$route.params.sectorTitle}&sectorId=${this.$route.params.sectorId}`"
+          >
+            <h5>
+              {{ tramite.title }}
+            </h5>
+          </router-link> -->
+          <router-link
+            :to="`/sector/${this.$route.params.sectorTitle}/${this.$route.params.sectorId}/${tramite.id} ?tramiteTitle=${tramite.title}&tramiteId=${tramite.id}`"
           >
             <h5>
               {{ tramite.title }}

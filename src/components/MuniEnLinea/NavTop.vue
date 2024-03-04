@@ -406,6 +406,7 @@ export default {
   padding-right: 3px;
   padding-top: 3px;
   transform: rotate(40deg);
+  cursor: pointer;
 }
 .botonOut {
   height: 52px;
