@@ -114,7 +114,10 @@
         <button type="button" class="btn btn-outline-secondary">
           <router-link to="/crear-cuenta"> Crear cuenta </router-link>
         </button>
-        <GoogleLogin :callback="callback" />
+        <GoogleLogin
+          :callback="callback"
+          style="margin: auto; margin-top: 5%"
+        />
         <button class="button face" @click="logInWithFacebook">
           <i class="bi bi-facebook" style="font-size: 25px"></i>
           ingresar con facebook
@@ -657,10 +660,7 @@ export default {
   /* min-height: 98px; */
   width: 25%;
 }
-.LogoLuque {
-  /* width: 20%; */
-  /* max-height: 98px; */
-}
+/*  */
 .bienvenida {
   text-align: center;
   width: 90%;
@@ -757,7 +757,10 @@ p {
   border-color: transparent;
   height: 45px;
   text-align: center;
+  width: 75%;
+  margin: auto;
 }
+
 .linea {
   background: white;
   height: 1px;

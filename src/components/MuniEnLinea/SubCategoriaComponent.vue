@@ -17,7 +17,11 @@
       >
         <div class="card-body" @click="setOpcionId(tramite.id)">
           <router-link
-            :to="`/formulario/cuestionario/${tramite.title}/${tramite.id}?sectorTitle=${this.$route.params.sectorTitle}&sectorId=${this.$route.params.sectorId}`"
+            :to="`/formulario/cuestionario/${tramite.titulo.toLowerCase()}/${
+              tramite.id
+            }?sectorTitle=${this.$route.params.sectorTitle}&sectorId=${
+              this.$route.params.sectorId
+            }`"
           >
             <!-- <router-link
             :to="`/formulario/cuestionario/${this.$route.params.tramite}/${this.$route.params.tramiteId}`"
