@@ -118,8 +118,12 @@ export default {
       ],
     };
   },
+  created() {
+    this.getRequisitos();
+  },
   methods: {
     getRequisitos() {
+      // console.log(this.tramiteId);
       const apiClient = axios.create({
         baseURL: BASE_URL,
         withCredentials: false,
@@ -127,10 +131,13 @@ export default {
           "auth-header": localStorage.getItem("token"),
         },
       });
-      apiClient.get("").then((response) => {
-        console.log(response);
-        this.pasos.push(response.data);
-      });
+      apiClient
+        .get(
+          `/oficina/procedures/procedure-requeriments/${this.$route.params.tramiteId}`
+        )
+        .then((response) => {
+          console.log(response.data);
+        });
     },
   },
 };

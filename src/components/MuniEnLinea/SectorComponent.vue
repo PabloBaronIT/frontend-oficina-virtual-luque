@@ -35,7 +35,7 @@
             </h5>
           </router-link> -->
           <router-link
-            :to="`/sector/${this.$route.params.sectorTitle}/${this.$route.params.sectorId}/${tramite.id} ?tramiteTitle=${tramite.title}&tramiteId=${tramite.id}`"
+            :to="`/sector/${this.$route.params.sectorTitle}/${this.$route.params.sectorId}/${tramite.id} ?tramiteTitle=${tramite.title}`"
           >
             <h5>
               {{ tramite.title }}

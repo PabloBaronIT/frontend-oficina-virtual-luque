@@ -51,7 +51,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/formulario/cuestionario/:formularioTitle/:formularioId",
+    path: "/formulario/cuestionario/:formularioTitle/:tramiteId",
     name: "formulario",
     component: () => import("@/views/ProcesoTramite/FormularioView.vue"),
     meta: { requiresAuth: true },

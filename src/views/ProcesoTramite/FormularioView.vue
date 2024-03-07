@@ -3,7 +3,7 @@
     <div class="row">
       <h5 style="margin-top: 4vh">
         <img
-          :src="description"
+          :src="this.image"
           alt="Descripción de la imagen"
           style="max-width: 32px; max-height: 32px"
         />
@@ -112,6 +112,7 @@ export default {
       titulo: "",
       currentActive: 0,
       sector: "",
+      image: "",
     };
   },
   components: {
@@ -148,15 +149,15 @@ export default {
       });
 
       apiClient
-        .get("/oficina/procedures/template/" + this.$route.params.formularioId)
+        .get("/oficina/procedures/template/" + this.$route.params.tramiteId)
         .then((response) => {
           console.log(response.data);
           this.preguntas = response.data.Template.questionProcedure;
           this.nivel = response.data.Template.level.level;
           this.descripcion = response.data.Template.description;
           procedure.procedureId = response.data.Template.id;
-          this.description = response.data.Template.category?.description || "";
-          console.log("este es el descripcion:", this.descripcion);
+          this.image = response.data.Template.category?.description || "";
+          // console.log("este es el descripcion:", this.descripcion);
           // parseInt(r.id);
           // console.log(this.procedureId, "soy el procedureId");
           procedure.title = response.data.Template.title;
