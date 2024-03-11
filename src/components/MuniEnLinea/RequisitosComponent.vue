@@ -104,10 +104,10 @@ export default {
   name: "RequisitosComponent",
   data() {
     return {
-      requisitos: [
-        "Ubicación exacta del lugar donde se encuentra el desperfecto.",
-        "Una descripción de la situación e incluso puede subir una foto.",
-      ],
+      // requisitos: [
+      //   "Ubicación exacta del lugar donde se encuentra el desperfecto.",
+      //   "Una descripción de la situación e incluso puede subir una foto.",
+      // ],
       pasos: [
         "Ingresa a la Oficina Virtual del Municipio.",
         "Indicación de Ruta para llegar al trámite, o escribí en el buscador 'el nombre del trámite'",
@@ -116,6 +116,7 @@ export default {
         "Realiza el pago de la Tasa (si hubiera) y presenta el trámite.",
         "Aguarda la comunicación del Municipio sobre la resolución del trámite",
       ],
+      requisitos: [],
     };
   },
   created() {
@@ -136,7 +137,11 @@ export default {
           `/oficina/procedures/procedure-requeriments/${this.$route.params.tramiteId}`
         )
         .then((response) => {
-          console.log(response.data);
+          let aasd = response.data?.requeriments;
+          aasd.forEach((element) => {
+            this.requisitos.push(element.requeriment.requeriment);
+          });
+          // console.log(response.data, "soy los requisitos del tramite");
         });
     },
   },
