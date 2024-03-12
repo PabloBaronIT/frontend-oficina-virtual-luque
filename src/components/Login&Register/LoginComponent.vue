@@ -17,13 +17,6 @@
     <div class="capa"></div>
 
     <div class="boxDerecho">
-      <!-- <div class="logosMuni">
-        <img
-          src="./../../assets/images/LogoEnLineaBlanco.svg"
-          alt="logoMuni"
-          class="logo"
-        />
-      </div> -->
       <div class="bienvenida">
         <h1>¡BIENVENIDO!</h1>
         <p>
@@ -114,7 +107,10 @@
         <button type="button" class="btn btn-outline-secondary">
           <router-link to="/crear-cuenta"> Crear cuenta </router-link>
         </button>
-        <GoogleLogin :callback="callback" />
+        <GoogleLogin
+          :callback="callback"
+          style="margin: auto; margin-top: 5%"
+        />
         <button class="button face" @click="logInWithFacebook">
           <i class="bi bi-facebook" style="font-size: 25px"></i>
           ingresar con facebook
@@ -189,13 +185,10 @@ export default {
             localStorage.setItem("refreshToken", refreshToken);
             this.getMyProfile();
             if (redirect) {
-              //console.log("usted debe rellenar su cuil");
               this.loading = false;
 
               this.$router.push("micuenta-update");
             } else {
-              // this.loading = true;
-              // this.getMyProfile();
               this.loading = false;
 
               this.$router.push("munienlinea");
@@ -275,12 +268,7 @@ export default {
 
       window.FB.login(
         (response) => {
-          // console.log(response);
-
           if (response.status == "connected") {
-            // window.FB.api("/me?fields=email,name", (response) => {
-            //   console.log(response);
-            // });
             window.FB.api(
               "/me",
               "GET",
@@ -295,16 +283,8 @@ export default {
                   this.datafacebook,
                   "soy los datos de face en un estado"
                 );
-                // await this.getLogFace(this.datafacebook);
-                // dataUser = {
-                //   name: response.name.split(" "),
-                //   email: response.email,
-                // };
               }
             );
-            // console.log("otro afuera");
-            // Now you can redirect the user or do an AJAX request to
-            // a PHP script that grabs the signed request from the cookie.
           }
         },
         { scope: "public_profile,email" }
@@ -315,9 +295,6 @@ export default {
       const apiClient = axios.create({
         baseURL: BASE_URL,
         withCredentials: false,
-        // headers: {
-        //   "auth-header": localStorage.getItem("token"),
-        // },
       });
       apiClient
         .post("/auth/signIn-providers", {
@@ -335,13 +312,10 @@ export default {
           localStorage.setItem("refreshToken", refreshToken);
           this.getMyProfile();
           if (redirect) {
-            //console.log("usted debe rellenar su cuil");
             this.loading = false;
 
             this.$router.push("micuenta-update");
           } else {
-            // this.loading = true;
-            // this.getMyProfile();
             this.loading = false;
 
             this.$router.push("munienlinea");
@@ -406,13 +380,11 @@ export default {
 
         .then((response) => {
           console.log(response.data);
-          // let tokenApi = response.data.Token.token;
           let tokenApi = response.data.Tokens.authToken;
           let refreshToken = response.data.Tokens.refreshToken; //REFRESH TOKEN
           localStorage.setItem("token", tokenApi);
           localStorage.setItem("refreshToken", refreshToken);
           this.getMyProfile();
-          // this.loading = false;
           this.$router.push("munienlinea");
         })
         .catch((error) => {
@@ -432,9 +404,6 @@ export default {
       const apiClient = axios.create({
         baseURL: BASE_URL,
         withCredentials: false,
-        // headers: {
-        //   "auth-header": localStorage.getItem("token"),
-        // },
       });
       apiClient
         .post("/auth/cidi/login/" + cidi)
@@ -539,8 +508,6 @@ export default {
             "nivel",
             response.data.UserProfile.user.level.level || null
           );
-          // this.loading = false;
-          // this.$router.push("munienlinea");
         })
         .catch((error) => {
           console.log(error);
@@ -611,10 +578,8 @@ export default {
   width: 100%;
   height: 120vh;
   align-items: center;
-  /* margin-top: -10%; */
 }
 .boxIzquierdoHombre {
-  /* width: 100%; */
   height: 100%;
   background-image: url("../../../public/img/HombreB.png");
   background-position: center;
@@ -646,21 +611,13 @@ export default {
   z-index: 20;
   backdrop-filter: blur(22.5px);
 }
-/* .logosMuni {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 4vh;
-} */
+
 .logo {
   /* max-width: 190px; */
   /* min-height: 98px; */
   width: 25%;
 }
-.LogoLuque {
-  /* width: 20%; */
-  /* max-height: 98px; */
-}
+/*  */
 .bienvenida {
   text-align: center;
   width: 90%;
@@ -757,7 +714,10 @@ p {
   border-color: transparent;
   height: 45px;
   text-align: center;
+  width: 75%;
+  margin: auto;
 }
+
 .linea {
   background: white;
   height: 1px;

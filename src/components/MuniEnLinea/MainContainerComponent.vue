@@ -63,7 +63,7 @@
                     <img :src="sector.description" alt="imagen" />
                   </div>
                   <div style="margin-left: 15px">
-                    <h5 style="text-decoration: none">
+                    <h5>
                       {{ sector.title }}
                     </h5>
                   </div>
@@ -390,8 +390,8 @@ h5 {
 .card-body img {
   /* object-fit: cover; */
   width: 90%;
-  max-height: 70px;
-  margin-bottom: 0;
+  min-height: 60px;
+  margin-bottom: 1%;
 }
 
 .card {
@@ -420,7 +420,6 @@ h5 {
   flex-direction: row;
   border-radius: 8px;
   max-height: 80px;
-
   /* width: 100%; */
 }
 .card:hover {
@@ -528,6 +527,12 @@ h5 {
   }
 }
 @media (max-width: 1000px) {
+  .card-body img {
+    /* object-fit: cover; */
+    width: 90%;
+    min-height: 50px;
+    margin-bottom: 0;
+  }
   .flex-container {
     width: 100vw;
     height: auto;

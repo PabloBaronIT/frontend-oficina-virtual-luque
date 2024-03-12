@@ -532,6 +532,7 @@ export default {
       pdfFinalized: null,
       modalPDF: false,
       content: "",
+      message: "",
     };
   },
   components: {
@@ -605,7 +606,7 @@ export default {
         .then((response) => {
           let h = response.data.MyProcedures;
 
-          console.log(h + "mis tramites");
+          console.log(response.data.MyProcedures + "mis tramites");
           this.l = h.length;
 
           for (let i = 0; i < h.length; i++) {
@@ -1055,6 +1056,10 @@ export default {
   margin-top: 5vh;
   justify-content: flex-start;
   margin-bottom: 6%;
+}
+.modal-dialog {
+  max-width: 900px;
+  max-height: 353px;
 }
 
 .modalTramite {

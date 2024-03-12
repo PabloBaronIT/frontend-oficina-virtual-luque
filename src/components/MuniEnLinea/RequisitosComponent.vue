@@ -43,7 +43,18 @@
             Para iniciar esta gestión deberás contar con los siguientes datos:
           </h4>
           <ul>
-            <li style="list-style: none">
+            <li
+              style="list-style: none"
+              v-for="(requisito, index) in this.requisitos"
+              :key="index"
+            >
+              <i
+                class="bi bi-circle-fill"
+                style="color: #00c3a8; font-size: 10px; margin-right: 5px"
+              ></i
+              >{{ requisito }}
+            </li>
+            <!-- <li style="list-style: none">
               <i
                 class="bi bi-circle-fill"
                 style="color: #00c3a8; font-size: 10px"
@@ -56,7 +67,7 @@
                 style="color: #00c3a8; font-size: 10px"
               ></i>
               Una descripción de la situación e incluso puede subir una foto.
-            </li>
+            </li> -->
           </ul>
           <p>
             Si posees toda la documentación requerida, ¡Estás listo para
@@ -93,6 +104,10 @@ export default {
   name: "RequisitosComponent",
   data() {
     return {
+      // requisitos: [
+      //   "Ubicación exacta del lugar donde se encuentra el desperfecto.",
+      //   "Una descripción de la situación e incluso puede subir una foto.",
+      // ],
       pasos: [
         "Ingresa a la Oficina Virtual del Municipio.",
         "Indicación de Ruta para llegar al trámite, o escribí en el buscador 'el nombre del trámite'",
@@ -101,10 +116,15 @@ export default {
         "Realiza el pago de la Tasa (si hubiera) y presenta el trámite.",
         "Aguarda la comunicación del Municipio sobre la resolución del trámite",
       ],
+      requisitos: [],
     };
+  },
+  created() {
+    this.getRequisitos();
   },
   methods: {
     getRequisitos() {
+      // console.log(this.tramiteId);
       const apiClient = axios.create({
         baseURL: BASE_URL,
         withCredentials: false,
@@ -112,10 +132,17 @@ export default {
           "auth-header": localStorage.getItem("token"),
         },
       });
-      apiClient.get("").then((response) => {
-        console.log(response);
-        this.pasos.push(response.data);
-      });
+      apiClient
+        .get(
+          `/oficina/procedures/procedure-requeriments/${this.$route.params.tramiteId}`
+        )
+        .then((response) => {
+          let aasd = response.data?.requeriments;
+          aasd.forEach((element) => {
+            this.requisitos.push(element.requeriment.requeriment);
+          });
+          // console.log(response.data, "soy los requisitos del tramite");
+        });
     },
   },
 };
@@ -144,26 +171,24 @@ li {
   line-height: normal;
   margin-top: 2%;
   color: #000;
-  /* list-style: none; */
+  list-style: none;
 }
-li {
-  margin-left: -4%;
-}
+
 ol {
   margin-left: 4%;
 }
 ol {
   counter-reset: item;
 }
-ol li {
-  /* list-style-type: decimal; */
-  list-style: none;
-  /* list-style: decimal; */
-  /* background: #ddd;
+/* ol li { */
+/* list-style-type: decimal; */
+/* list-style: none; */
+/* list-style: decimal; */
+/* background: #ddd;
   width: 150px;
   height: 50px;
   border: solid 1px black; */
-}
+/* } */
 ol li::before {
   display: inline-block;
   content: counter(item);
@@ -173,7 +198,6 @@ ol li::before {
   color: #fbfbfb;
   font-size: 14px;
   padding: 1px;
-  /* margin: 4px 4px; */
   text-align: center;
   width: 20px;
   height: 20px;
