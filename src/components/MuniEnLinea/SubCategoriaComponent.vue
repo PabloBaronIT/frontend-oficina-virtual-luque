@@ -9,28 +9,54 @@
         </h4>
       </h1>
     </div>
-    <div class="tramites">
-      <div
-        v-for="tramite in tramitesApi"
-        :key="tramite.id"
+      <div v-if="this.opcionesTramites.length" class="tramites">
+        <div
+        
+        v-for="opcion in opcionesTramites"
+        :key="opcion.id"
         class="cardTramites"
       >
-        <div class="card-body" @click="setOpcionId(tramite.id)">
-          <router-link
-            :to="`/formulario/cuestionario/${tramite.titulo.toLowerCase()}/${
+        <div class="card-body" @click="getSubOpcionTramite(opcion.id)">
+          <!-- <router-link
+            :to="`/formulario/cuestionario/${opcion.title}/${
               this.$route.params.tramiteId
             }?sectorTitle=${this.$route.params.sectorTitle}&sectorId=${
               this.$route.params.sectorId
             }`"
-          >
+          > -->
             <!-- <router-link
             :to="`/formulario/cuestionario/${this.$route.params.tramite}/${this.$route.params.tramiteId}`"
           > -->
-            <h5>{{ tramite.titulo }}</h5>
-          </router-link>
+            <h5>{{ opcion.title }}</h5>
+          <!-- </router-link> -->
         </div>
       </div>
-    </div>
+      </div>
+     
+      <div  v-else class="tramites">
+        <div
+      
+      class="cardTramites"
+      
+       v-for="opcion in subOpcionesTramites"
+       :key="opcion.id"
+     >
+       <div class="card-body" >
+         <router-link
+           :to="`/formulario/cuestionario/${opcion.title}/${
+             this.$route.params.tramiteId
+           }?sectorTitle=${this.$route.params.sectorTitle}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${opcion.id}`"
+         >
+           <!-- <router-link
+           :to="`/formulario/cuestionario/${this.$route.params.tramite}/${this.$route.params.tramiteId}`"
+         > -->
+           <h5>{{ opcion.title }}</h5>
+         </router-link>
+       </div>
+     </div>
+
+      </div>
+     
     <p class="error" v-show="this.error === true">
       Debe seleccionar una opción para continuar.
     </p>
@@ -60,30 +86,28 @@ export default {
   name: "subcategoriaComponent",
   data() {
     return {
-      tramitesApi: [
-        { titulo: "AUTOMOTOR", id: 1 },
-        { titulo: "INMUEBLE", id: 2 },
-        { titulo: "COMERCIO", id: 3 },
-        { titulo: "IMPUESTOS", id: 4 },
-      ],
-      opcionId: null,
+      opcionesTramites: [],
+      subOpcionesTramites:[],
+      tramiteId: null,
+      // tramite: null,
       sector: "",
       sectorId: "",
       error: false,
+      opcionTramite: null,
+      subOpcionTramite: null
     };
   },
   created() {
     this.sector = this.$route.params.sectorTitle;
     this.sectorId = this.$route.params.sectorId;
+    // this.tramite = this.$route.query.tramiteTitle;
+    this.tramiteId = this.$route.params.tramiteId;
     //SE BUSCAN LAS SUBCATEGORIAS EN LA BD
-    // this.getSubCategoria();
+    this.getOpcionTramite();
   },
   methods: {
-    setOpcionId(id) {
-      this.opcionId = id;
-      console.log(this.opcionId, "soy el id de la opcion de tramite");
-    },
-    getSubCategoria() {
+ 
+    getOpcionTramite() {
       const apiClient = axios.create({
         baseURL: BASE_URL,
         withCredentials: false,
@@ -92,12 +116,22 @@ export default {
         },
       });
       apiClient
-        .get("")
+        .get(`/oficina/procedures/procedure/option/${this.tramiteId}`)
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
+          let opciones= response.data.Options;
+
+          opciones.forEach(element => {
+            this.opcionesTramites.push(element)
+          });
         })
         .catch((error) => {
           console.log(error);
+          if(error.response.status===404){
+            this.$router.push(`/formulario/cuestionario/${this.$route.query.tramiteTitle}/${
+              this.tramiteId
+            }?sectorTitle=${this.sector}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${this.subOpcionTramite}`)
+          }
           if (error.response.status === 500) {
             if (error.response.data.message === "Token de usuario expirado") {
               setToken();
@@ -108,6 +142,48 @@ export default {
             ) {
               setTokenRelations();
               this.getSubCategoria();
+            }
+          } else {
+            this.mensaje = "Se ha producido un error, vuelva a interntarlo.";
+          }
+        });
+    },
+    // Para buscar las subOpciones de una opcion de tramite
+    getSubOpcionTramite(id){
+      this.opcionTramite = id;
+      const apiClient = axios.create({
+        baseURL: BASE_URL,
+        withCredentials: false,
+        headers: {
+          "auth-header": localStorage.getItem("token"),
+        },
+      });
+      apiClient
+        .get(`/oficina/procedures/option/subOption/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          this.opcionesTramites=[]
+          let opciones= response.data.SubOptions;
+          opciones.forEach(element => {
+            this.subOpcionesTramites.push(element)
+          });
+        }).catch((error) => {
+          console.log(error);
+          if(error.response.status===404){
+            this.$router.push(`/formulario/cuestionario/${this.$route.query.tramiteTitle}/${
+              this.tramiteId
+            }?sectorTitle=${this.sector}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${this.subOpcionTramite}`)
+          }
+          if (error.response.status === 500) {
+            if (error.response.data.message === "Token de usuario expirado") {
+              setToken();
+              this.getSubOpcionTramite(id);
+            }
+            if (
+              error.response.data.message === "Token de representante expirado"
+            ) {
+              setTokenRelations();
+              this.getSubOpcionTramite(id);
             }
           } else {
             this.mensaje = "Se ha producido un error, vuelva a interntarlo.";

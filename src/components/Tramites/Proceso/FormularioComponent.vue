@@ -285,6 +285,8 @@ export default {
       calle: "",
       numero: "",
       entrecalles: "",
+      opcionTramite:null,
+      subOpcionTramite: null
     };
   },
   created() {
@@ -295,9 +297,21 @@ export default {
     console.log(this.preguntas.length, "cantidad de preguntas");
     this.sectorTitle = this.$route.query.sector;
     this.formularioTitle = this.$route.params.formularioTitle;
-    console.log(this.nivel, "soy el nivel");
+    this.opcionTramite= this.$route.query.opcionTramite;
+    this.subOpcionTramite= this.$route.query.subOpcionTramite;
+    // if(this.opcionTramite != null){
+    //         this.opcionTramite= parseInt(this.opcionTramite)
+    //     }else{
+    //       this.opcionTramite= null
+    //     }
+    // if(this.subOpcionTramite != null){
+    //     this.subOpcionTramite= parseInt(this.subOpcionTramite)
+    // }
+    console.log(this.opcionTramite , this.subOpcionTramite, "soy la opcion Y SUB del tramite")
+    // console.log(this.nivel, "soy el nivel");
   },
   methods: {
+  
     setTextInput(a, b) {
       console.log(a, b, "soy las coordenadas");
       let valor = `${a},${b}`;
@@ -506,6 +520,7 @@ export default {
         this.preNext();
         this.loading = true;
         //this.modal = true;
+     
         const apiClient = axios.create({
           baseURL: BASE_URL,
           withCredentials: false,
@@ -517,6 +532,8 @@ export default {
         apiClient
           .post("/oficina/procedures/submit-procedure", {
             // questions: this.procedure.questions,
+            optionId:this.opcionTramite,
+            subOptionId: this.subOpcionTramite,
             questions: this.respuestas,
             procedureId: parseInt(this.$route.params.formularioId),
           })
@@ -819,7 +836,7 @@ h5 {
   align-items: center;
   width: 100%;
   justify-content: center;
-  margin-top: 2%;
+  /* margin-top: 2%; */
   /* margin-bottom: 10rem; */
 }
 
