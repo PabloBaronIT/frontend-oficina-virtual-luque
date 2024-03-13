@@ -104,10 +104,6 @@ export default {
   name: "RequisitosComponent",
   data() {
     return {
-      // requisitos: [
-      //   "Ubicación exacta del lugar donde se encuentra el desperfecto.",
-      //   "Una descripción de la situación e incluso puede subir una foto.",
-      // ],
       pasos: [
         "Ingresa a la Oficina Virtual del Municipio.",
         "Indicación de Ruta para llegar al trámite, o escribí en el buscador 'el nombre del trámite'",

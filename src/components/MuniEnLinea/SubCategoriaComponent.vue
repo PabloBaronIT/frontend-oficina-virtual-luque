@@ -45,7 +45,7 @@
          <router-link
            :to="`/formulario/cuestionario/${opcion.title}/${
              this.$route.params.tramiteId
-           }?sectorTitle=${this.$route.params.sectorTitle}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${opcion.id}`"
+           }?sectorTitle=${this.$route.params.sectorTitle}&sectorId=${this.$route.params.sectorId}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${opcion.id}`"
          >
            <!-- <router-link
            :to="`/formulario/cuestionario/${this.$route.params.tramite}/${this.$route.params.tramiteId}`"
@@ -130,7 +130,7 @@ export default {
           if(error.response.status===404){
             this.$router.push(`/formulario/cuestionario/${this.$route.query.tramiteTitle}/${
               this.tramiteId
-            }?sectorTitle=${this.sector}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${this.subOpcionTramite}`)
+            }?sectorTitle=${this.sector}&sectorId=${this.$route.params.sectorId}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${this.subOpcionTramite}`)
           }
           if (error.response.status === 500) {
             if (error.response.data.message === "Token de usuario expirado") {
@@ -172,7 +172,7 @@ export default {
           if(error.response.status===404){
             this.$router.push(`/formulario/cuestionario/${this.$route.query.tramiteTitle}/${
               this.tramiteId
-            }?sectorTitle=${this.sector}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${this.subOpcionTramite}`)
+            }?sectorTitle=${this.sector}&sectorId=${this.$route.params.sectorId}&opcionTramite=${this.opcionTramite}&subOpcionTramite=${this.subOpcionTramite}`)
           }
           if (error.response.status === 500) {
             if (error.response.data.message === "Token de usuario expirado") {
