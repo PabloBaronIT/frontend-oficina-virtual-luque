@@ -120,7 +120,13 @@ export default {
   },
   methods: {
     getRequisitos() {
-      // console.log(this.tramiteId);
+      console.log(
+        parseInt(this.$route.params.tramiteId),
+        this.$route.query.opcionTramite,
+        this.$route.query.subOpcionTramite,
+        "soy los datos"
+      );
+
       const apiClient = axios.create({
         baseURL: BASE_URL,
         withCredentials: false,
@@ -129,15 +135,24 @@ export default {
         },
       });
       apiClient
-        .get(
-          `/oficina/procedures/procedure-requeriments/${this.$route.params.tramiteId}`
-        )
+        .post(`/oficina/procedures/procedure-requeriments`, {
+          procedureId: parseInt(this.$route.params.tramiteId),
+          optionId:
+            this.$route.query.opcionTramite === "null"
+              ? null
+              : parseInt(this.$route.query.opcionTramite),
+          subOptionId:
+            this.$route.query.subOpcionTramite === "null"
+              ? null
+              : parseInt(this.$route.query.subOpcionTramite),
+        })
         .then((response) => {
-          let aasd = response.data?.requeriments;
-          aasd.forEach((element) => {
+          let asd = response.data.requeriments;
+          console.log(asd, "soy los requisitos");
+          asd.forEach((element) => {
             this.requisitos.push(element.requeriment.requeriment);
           });
-          // console.log(response.data, "soy los requisitos del tramite");
+          console.log(response.data, "soy los requisitos del tramite");
         });
     },
   },
