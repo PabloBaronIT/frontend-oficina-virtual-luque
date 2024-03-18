@@ -39,7 +39,7 @@
       </div>
       <FormularioComponent
         :questionProp="this.preguntas"
-        :nivel="this.nivel"
+        :precio="this.precio"
         :dispatchProcedure="this.dispatchProcedure"
         :setProcedure="this.setProcedure"
         :outProcedure="this.outProcedure"
@@ -106,7 +106,7 @@ export default {
       category: this.$route.params,
       // length: null,
       preguntas: "",
-      nivel: "",
+      precio: "",
       inicio: true,
       descripcion: "",
       titulo: "",
@@ -149,13 +149,26 @@ export default {
       });
 
       apiClient
-        .get("/oficina/procedures/template/" + this.$route.params.tramiteId)
+        .post("/oficina/procedures/template", {
+          procedureId: parseInt(this.$route.params.tramiteId),
+          optionId:
+            this.$route.query.opcionTramite === "null"
+              ? null
+              : parseInt(this.$route.query.opcionTramite),
+          subOptionId:
+            this.$route.query.subOpcionTramite === "null"
+              ? null
+              : parseInt(this.$route.query.subOpcionTramite),
+        })
         .then((response) => {
           console.log(response.data);
-          this.preguntas = response.data.Template.questionProcedure;
-          this.nivel = response.data.Template.level.level;
-          this.descripcion = response.data.Template.description;
-          procedure.procedureId = response.data.Template.id;
+          this.preguntas =
+            response.data.Template["questionProcedure"] ||
+            response.data.Template["questionProcedureOption"] ||
+            response.data.Template["questionProcedureSubOption"];
+          this.precio = parseInt(response.data.Template.price);
+          // this.descripcion = response.data.Template.description;
+          // procedure.procedureId = response.data.Template.id;
           this.image = response.data.Template.category?.description || "";
           // console.log("este es el descripcion:", this.descripcion);
           // parseInt(r.id);
@@ -163,9 +176,10 @@ export default {
           procedure.title = response.data.Template.title;
           procedure.precio = response.data.Template.price;
           this.titulo = response.data.Template.title;
-          this.sector = response.data.Template.category.title;
+          // this.sector = response.data.Template.category.title;
 
           // this.length = r.question.length;
+          // console.log(this.preguntas, "soy las preguntasssssss");
         })
         .catch((error) => {
           console.log(error);

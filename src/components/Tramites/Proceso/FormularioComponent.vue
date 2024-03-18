@@ -52,7 +52,7 @@
           name=""
           id=""
           cols="30"
-          rows="10"
+          rows="5"
           v-model="this.textInput"
         ></textarea>
       </div>
@@ -187,21 +187,12 @@
         <img src="./../../../assets/images/FlechaDerecha.svg" alt="imagen" />
       </div>
     </div>
-    <div
-      class="alert alert-success text-center"
-      role="alert"
-      v-if="this.servicio === true"
-    >
-      <h5>
-        Gracias por utilizar la Oficina Virtual de la municipalidad de Sacanta!
-        <h6>Su reclamo ha sido presentado!</h6>
-      </h5>
-    </div>
+
     <!-- Si esta en el ultimo paso se habilita el submitt -->
     <!--INPUT PARA ENVIAR TODAS LAS RESPUESTAS-->
 
     <div v-if="this.paso + 1 === this.preguntas.length" class="btn-submit">
-      <div v-if="this.mensajeTrue">
+      <div v-if="this.mensajeTrue" class="error">
         <p>
           {{ this.mensaje }}
         </p>
@@ -219,9 +210,6 @@
         value="Verpdf"
         @click="ver"
       /> -->
-    </div>
-    <div class="modal-dialog modal-dialog-centered" v-if="this.modalReclamo">
-      <h1>TRAMITE PRESENTADO EXITOSAMENTE</h1>
     </div>
   </div>
 </template>
@@ -250,7 +238,7 @@ export default {
 
   props: {
     questionProp: Array,
-    nivel: Number,
+    precio: Number,
     dispatchProcedure: Function,
     setProcedure: Function,
     outProcedure: Function,
@@ -285,8 +273,8 @@ export default {
       calle: "",
       numero: "",
       entrecalles: "",
-      opcionTramite:null,
-      subOpcionTramite: null
+      optionId: null,
+      subOptionId: null,
     };
   },
   created() {
@@ -294,32 +282,39 @@ export default {
     // procedure.userId = localStorage.getItem("id");
     this.loading = true;
     this.setLoading();
-    console.log(this.preguntas.length, "cantidad de preguntas");
+    console.log(this.preguntas?.length, "cantidad de preguntas");
     this.sectorTitle = this.$route.query.sector;
     this.formularioTitle = this.$route.params.formularioTitle;
-    this.opcionTramite= this.$route.query.opcionTramite;
-    this.subOpcionTramite= this.$route.query.subOpcionTramite;
-    // if(this.opcionTramite != null){
-    //         this.opcionTramite= parseInt(this.opcionTramite)
-    //     }else{
-    //       this.opcionTramite= null
-    //     }
-    // if(this.subOpcionTramite != null){
-    //     this.subOpcionTramite= parseInt(this.subOpcionTramite)
-    // }
-    console.log(this.opcionTramite , this.subOpcionTramite, "soy la opcion Y SUB del tramite")
+    (this.optionId =
+      this.$route.query.opcionTramite === "null"
+        ? null
+        : parseInt(this.$route.query.opcionTramite)),
+      (this.subOptionId =
+        this.$route.query.subOpcionTramite === "null"
+          ? null
+          : parseInt(this.$route.query.subOpcionTramite)),
+      // if(this.opcionTramite != null){
+      //         this.opcionTramite= parseInt(this.opcionTramite)
+      //     }else{
+      //       this.opcionTramite= null
+      //     }
+      // if(this.subOpcionTramite != null){
+      //     this.subOpcionTramite= parseInt(this.subOpcionTramite)
+      // }
+      console.log(
+        this.opcionTramite,
+        this.subOpcionTramite,
+        "soy la opcion Y SUB del tramite"
+      );
     // console.log(this.nivel, "soy el nivel");
   },
   methods: {
-  
     setTextInput(a, b) {
       console.log(a, b, "soy las coordenadas");
       let valor = `${a},${b}`;
       this.coordenadas = valor;
     },
-    setModal() {
-      this.modalReclamo = !this.modalReclamo;
-    },
+
     dispatchClean() {
       this.$store.dispatch("cleanAction");
     },
@@ -506,21 +501,21 @@ export default {
     //ENVIO DE LAS RESPUESTAS -FINAL DEL FORMULARIO-
 
     submitt() {
-      if (
-        this.selected == 0 &&
-        this.textInput == "" &&
-        this.coordenadas == ""
-      ) {
-        this.validation = false;
-      } else {
-        this.validation = true;
-      }
+      // if (
+      //   this.selected == 0 &&
+      //   this.textInput == "" &&
+      //   this.coordenadas == ""
+      // ) {
+      //   this.validation = false;
+      // } else {
+      //   this.validation = true;
+      // }
 
       if (this.validation) {
         this.preNext();
         this.loading = true;
         //this.modal = true;
-     
+
         const apiClient = axios.create({
           baseURL: BASE_URL,
           withCredentials: false,
@@ -532,22 +527,22 @@ export default {
         apiClient
           .post("/oficina/procedures/submit-procedure", {
             // questions: this.procedure.questions,
-            optionId:this.opcionTramite,
+            procedureId: parseInt(this.$route.params.tramiteId),
+            optionId: this.opcionTramite,
             subOptionId: this.subOpcionTramite,
             questions: this.respuestas,
-            procedureId: parseInt(this.$route.params.formularioId),
           })
           .then((response) => {
             console.log(response);
             if (response.status === 201) {
               let idTramite = response.data.procedure_history_id;
               this.textInput = "";
-              // this.mensaje = response.data.message;
               this.mensajeTrue = true;
-              //   //this.submitted = true;
-              //this.procedure.questions = [];
-              this.mensaje = "Trámite presentado!";
-              if (this.nivel === 2) {
+              this.mensaje = response.data.message;
+              let precioTramite = response.data.procedure_price;
+
+              if (precioTramite > 0) {
+                //////TOMAR EL PRECIO DEL TRAMITE PARA SABER SI HAY QUE REDIRIGIR A SIRO
                 setTimeout(() => {
                   this.$router.push(`/pago/${idTramite}`);
                 }, 2000);
@@ -555,8 +550,7 @@ export default {
                 // alert(
                 //   "Su reclamo fue presentado! Gracias por utilizar nuestra Oficina Virtual"
                 // );
-                // this.$router.push(`/munienlinea`);
-                this.setModal();
+                this.$router.push(`/munienlinea`);
               }
               this.dispatchClean();
               this.dispatchProcedure();
@@ -636,7 +630,7 @@ export default {
   align-content: center;
 }
 .contenedor {
-  margin-bottom: 10%;
+  margin-bottom: 12%;
   padding-bottom: 5%;
   /* width: 75%; */
   margin: auto;
@@ -836,7 +830,9 @@ h5 {
   align-items: center;
   width: 100%;
   justify-content: center;
-  /* margin-top: 2%; */
+  position: absolute;
+  right: 0;
+  margin-top: -5%;
   /* margin-bottom: 10rem; */
 }
 
@@ -910,7 +906,6 @@ h5 {
   }
   .tipoTexto {
     width: 100%;
-    background: rebeccapurple;
   }
   .tipoTexto input[type="number"] {
     width: 80%;
