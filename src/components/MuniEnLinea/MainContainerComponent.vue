@@ -390,12 +390,11 @@ h5 {
 .card-body img {
   /* object-fit: cover; */
   width: 90%;
-  min-height: 60px;
+  height: 60px;
   margin-bottom: 1%;
 }
 
 .card {
-  background: var(--grey-bk);
   font-weight: bold;
   /* border: none; */
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
@@ -420,7 +419,7 @@ h5 {
   flex-direction: row;
   border-radius: 8px;
   max-height: 80px;
-  /* width: 100%; */
+  width: 100%;
 }
 .card:hover {
   background: linear-gradient(
@@ -524,6 +523,18 @@ h5 {
   }
   .botonGestiones h5 {
     font-size: 15px;
+  }
+  .card-body img {
+    /* object-fit: cover; */
+    width: 100%;
+    height: 70px;
+    margin-bottom: 5%;
+  }
+  .card h5 {
+    font-size: 15px;
+    color: #9b9a9a;
+    font-style: normal;
+    font-weight: 600;
   }
 }
 @media (max-width: 1000px) {

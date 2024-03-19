@@ -275,6 +275,7 @@ export default {
       entrecalles: "",
       optionId: null,
       subOptionId: null,
+      procedureId: null,
     };
   },
   created() {
@@ -285,27 +286,30 @@ export default {
     console.log(this.preguntas?.length, "cantidad de preguntas");
     this.sectorTitle = this.$route.query.sector;
     this.formularioTitle = this.$route.params.formularioTitle;
-    (this.optionId =
-      this.$route.query.opcionTramite === "null"
-        ? null
-        : parseInt(this.$route.query.opcionTramite)),
-      (this.subOptionId =
-        this.$route.query.subOpcionTramite === "null"
-          ? null
-          : parseInt(this.$route.query.subOpcionTramite)),
-      // if(this.opcionTramite != null){
-      //         this.opcionTramite= parseInt(this.opcionTramite)
-      //     }else{
-      //       this.opcionTramite= null
-      //     }
-      // if(this.subOpcionTramite != null){
-      //     this.subOpcionTramite= parseInt(this.subOpcionTramite)
-      // }
-      console.log(
-        this.opcionTramite,
-        this.subOpcionTramite,
-        "soy la opcion Y SUB del tramite"
-      );
+
+    // (this.optionId =
+    //   this.$route.query.opcionTramite == "null"
+    //     ? null
+    //     : parseInt(this.$route.query.opcionTramite)),
+    //   (this.subOptionId =
+    //     this.$route.query.subOpcionTramite == "null"
+    //       ? null
+    //       : parseInt(this.$route.query.subOpcionTramite)),
+    //   (this.procedureId = parseInt(this.$route.params.tramiteId));
+    // if(this.opcionTramite != null){
+    //         this.opcionTramite= parseInt(this.opcionTramite)
+    //     }else{
+    //       this.opcionTramite= null
+    //     }
+    // if(this.subOpcionTramite != null){
+    //     this.subOpcionTramite= parseInt(this.subOpcionTramite)
+    // }
+    console.log(
+      this.procedureId,
+      this.optionId,
+      this.subOptionId,
+      "soy el tramite, la opcion Y subOpcion del tramite"
+    );
     // console.log(this.nivel, "soy el nivel");
   },
   methods: {
@@ -510,11 +514,28 @@ export default {
       // } else {
       //   this.validation = true;
       // }
-
+      let asd = {
+        procedureId: parseInt(this.$route.params.tramiteId),
+        optionId:
+          this.$route.query.opcionTramite === "null"
+            ? null
+            : parseInt(this.$route.query.opcionTramite),
+        subOptionId:
+          this.$route.query.subOpcionTramite === "null"
+            ? null
+            : parseInt(this.$route.query.subOpcionTramite),
+        questions: this.respuestas,
+      };
       if (this.validation) {
         this.preNext();
         this.loading = true;
         //this.modal = true;
+        // let obj = {
+        //   procedureId: this.procedureId,
+        //   optionId: this.opcionTramite,
+        //   subOptionId: this.subOpcionTramite,
+        //   questions: this.respuestas,
+        // };
 
         const apiClient = axios.create({
           baseURL: BASE_URL,
@@ -525,13 +546,7 @@ export default {
         });
 
         apiClient
-          .post("/oficina/procedures/submit-procedure", {
-            // questions: this.procedure.questions,
-            procedureId: parseInt(this.$route.params.tramiteId),
-            optionId: this.opcionTramite,
-            subOptionId: this.subOpcionTramite,
-            questions: this.respuestas,
-          })
+          .post("/oficina/procedures/submit-procedure", asd)
           .then((response) => {
             console.log(response);
             if (response.status === 201) {
@@ -550,7 +565,9 @@ export default {
                 // alert(
                 //   "Su reclamo fue presentado! Gracias por utilizar nuestra Oficina Virtual"
                 // );
-                this.$router.push(`/munienlinea`);
+                setTimeout(() => {
+                  this.$router.push(`/munienlinea`);
+                }, 2000);
               }
               this.dispatchClean();
               this.dispatchProcedure();

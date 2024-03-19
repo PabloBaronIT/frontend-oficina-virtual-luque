@@ -102,7 +102,7 @@ export default {
       console.log(
         this.IdResultado,
         this.IdReferenciaOperacion,
-        "soy el idResultado y el IdReferencia",
+        "soy el idResultado y el IdReferencia"
       );
       const apiClient = axios.create({
         baseURL: BASE_URL,
@@ -113,10 +113,6 @@ export default {
             "^Yh19S&^8$yl01&Fagyg8eLxrI8uxypiCpdUdRscjF!xKSSqq",
         },
       });
-      console.log(
-        "IdReferenciaOperacion a enviar:",
-        this.$route.query.IdReferenciaOperacion,
-      );
 
       apiClient
         .post("/confirm-payment/" + this.$route.query.IdReferenciaOperacion)
@@ -166,19 +162,19 @@ export default {
         `Tramite: ${this.dataPayment?.procedure.title}, Id: ${this.dataPayment?.id}`,
         {
           lineHeightFactor: 2,
-        },
+        }
       );
       doc.text(20, 80, `Valor abonado: ${this.dataPayment?.procedure.price}`);
 
       doc.text(
         20,
         100,
-        `Cuil: ${this.dataPayment?.user.cuil}, nombre: ${this.dataPayment?.user.firstname} ${this.dataPayment?.user.lastname}`,
+        `Cuil: ${this.dataPayment?.user.cuil}, nombre: ${this.dataPayment?.user.firstname} ${this.dataPayment?.user.lastname}`
       );
       doc.text(
         20,
         120,
-        `Numero de Operación: ${this.dataPayment.payment[0]?.payment_id}`,
+        `Numero de Operación: ${this.dataPayment.payment[0]?.payment_id}`
       );
       doc.text(20, 140, `Fechad de emisión: ${this.fecha}`);
       doc.save("Costancia de pago.pdf");

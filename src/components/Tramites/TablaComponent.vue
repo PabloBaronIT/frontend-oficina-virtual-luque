@@ -153,7 +153,7 @@
                   {{
                     this.selectTramite?.procedure?.communication[
                       this.selectTramite.procedure.communication.length - 1
-                    ].message
+                    ]?.message
                   }}
                 </p>
               </div>
@@ -606,7 +606,7 @@ export default {
         .then((response) => {
           let h = response.data.MyProcedures;
 
-          console.log(response.data.MyProcedures + "mis tramites");
+          console.log(response + "mis tramites");
           this.l = h.length;
 
           for (let i = 0; i < h.length; i++) {
@@ -1060,6 +1060,7 @@ export default {
 .modal-dialog {
   max-width: 900px;
   max-height: 353px;
+  text-align: left;
 }
 
 .modalTramite {
