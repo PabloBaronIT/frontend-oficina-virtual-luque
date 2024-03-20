@@ -223,10 +223,15 @@ export default {
     console.log(cidi, "soy query de cidi");
 
     let Cookiess = document.cookie.split(";"); //tomo todas la cookkies
-    let asd = Cookiess?.map((element) => {
+    console.log(Cookiess, "soy las cookies");
+    let asd = Cookiess?.filter((element) => {
       //las recorro para buscar la de cidi
-      if (element.includes("cidi")) return element;
+      // if (element.includes("cidi")) {
+      return element.includes("cidi");
+      // }
     });
+    console.log(asd);
+
     let cidiCook = asd[0]?.split("=") || null; //separo la que es de cidi para obtener el valor
 
     if (cidi) {

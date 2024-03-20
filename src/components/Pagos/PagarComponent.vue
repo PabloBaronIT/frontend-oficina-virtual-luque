@@ -46,7 +46,7 @@ import { BASE_URL } from "@/env";
 export default {
   name: "PagarComponent",
   created() {
-    this.procedure_amount = this.$store.state.procedure[0].precio;
+    this.procedure_amount = this.$route.query.precio;
     this.idTramitePago = parseInt(this.$route.params.idTramite);
     // console.log(
     //   this.procedure_amount,

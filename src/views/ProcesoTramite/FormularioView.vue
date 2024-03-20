@@ -59,9 +59,14 @@
 
         <h4>Volver atrás</h4>
       </div>
-
+      <div v-if="this.presencial">
+        <router-link to="/turneroweb">
+          <h4>RESERVAR TURNO</h4>
+        </router-link>
+      </div>
       <div
         style="display: flex; flex-direction: row"
+        v-else
         @click="
           () => {
             this.inicio = false;
@@ -113,6 +118,7 @@ export default {
       currentActive: 0,
       sector: "",
       image: "",
+      presencial: false,
     };
   },
   components: {
@@ -176,6 +182,7 @@ export default {
           procedure.title = response.data.Template.title;
           procedure.precio = response.data.Template.price;
           this.titulo = response.data.Template.title;
+          this.presencial = true;
           // this.sector = response.data.Template.category.title;
 
           // this.length = r.question.length;

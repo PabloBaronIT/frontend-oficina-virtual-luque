@@ -529,13 +529,6 @@ export default {
       if (this.validation) {
         this.preNext();
         this.loading = true;
-        //this.modal = true;
-        // let obj = {
-        //   procedureId: this.procedureId,
-        //   optionId: this.opcionTramite,
-        //   subOptionId: this.subOpcionTramite,
-        //   questions: this.respuestas,
-        // };
 
         const apiClient = axios.create({
           baseURL: BASE_URL,
@@ -559,7 +552,9 @@ export default {
               if (precioTramite > 0) {
                 //////TOMAR EL PRECIO DEL TRAMITE PARA SABER SI HAY QUE REDIRIGIR A SIRO
                 setTimeout(() => {
-                  this.$router.push(`/pago/${idTramite}`);
+                  this.$router.push(
+                    `/pago/${idTramite}?precio=${precioTramite}`
+                  );
                 }, 2000);
               } else {
                 // alert(

@@ -191,7 +191,7 @@ export default {
     //   console.log;
     // };
     this.getCategories();
-    window.addEventListener("popstate", this.handleBackButton);
+    // window.addEventListener("popstate", this.handleBackButton);
   },
   methods: {
     setClass() {

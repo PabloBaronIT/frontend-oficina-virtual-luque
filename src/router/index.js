@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
@@ -17,6 +17,12 @@ const routes = [
     path: "/munienlinea",
     name: "munienlinea",
     component: () => import("../views/HomeVecino/HomeVecinoView.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/turneroweb",
+    name: "turneroweb",
+    component: () => import("../views/Turnero/TurneroWebView.vue"),
     meta: { requiresAuth: true },
   },
   {
@@ -90,7 +96,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 

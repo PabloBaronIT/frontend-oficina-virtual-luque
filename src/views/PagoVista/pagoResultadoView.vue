@@ -39,9 +39,7 @@
         alt="Sacanta"
         class="imagenlogo"
       />
-      <router-link @click="limpiarURL" to="/munienlinea" class="bn3">
-        Inicio
-      </router-link>
+      <router-link to="/munienlinea" class="bn3"> Inicio </router-link>
     </div>
   </div>
 </template>
@@ -58,7 +56,6 @@ export default {
   created() {
     this.IdResultado = this.$route.query.IdResultado;
     this.IdReferenciaOperacion = this.$route.query.IdReferenciaOperacion;
-    console.log("vamo a ver si se ve", this.$route.query.IdResultado);
     this.loading = true;
     this.dispatchLoginPermission();
     // const urlParams = new URLSearchParams(window.location.search);
@@ -115,7 +112,7 @@ export default {
       });
 
       apiClient
-        .post("/confirm-payment/" + this.$route.query.IdReferenciaOperacion)
+        .post("/confirm-payment/" + this.IdReferenciaOperacion)
         .then((response) => {
           console.log(response.data);
           this.message = response.data.message;
