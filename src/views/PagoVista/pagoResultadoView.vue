@@ -13,7 +13,9 @@
     </div>
     <div v-else class="container">
       <h1>{{ this.message }} <br /></h1>
-      <h2>Gracias por utilizar la oficina virtual de Sacanta</h2>
+      <h6 style="margin-top: 5%">
+        Gracias por utilizar la oficina virtual de Sacanta
+      </h6>
       <div
         class="constancia"
         v-if="this.dataPayment != null"
@@ -23,7 +25,7 @@
           {{ this.message }}
         </n5>
         <h4>Nombre del trámite: {{ this.dataPayment?.procedure.title }}</h4>
-        <p>Valor abonado:$ {{ this.dataPayment?.procedure.price }}</p>
+        <p>Valor abonado:$ {{ this.precio }}</p>
         <p>Numero de operación:{{ this.dataPayment.payment[0]?.payment_id }}</p>
         <h4>
           {{ this.dataPayment.user.firstname }}
@@ -76,6 +78,7 @@ export default {
       cidiCookie: "",
       dataPayment: null,
       fecha: "",
+      precio: "",
     };
   },
   computed: {
@@ -119,7 +122,21 @@ export default {
           this.dataPayment = response.data.ProcedureData;
           this.fecha =
             new Date(response.data.actual_date).toLocaleDateString() || "";
-
+          let subOption = "";
+          let Option =
+            response.data.ProcedureData.procedure["procedureOption"] || null;
+          console.log(Option, "option");
+          if (Option) {
+            subOption = Option[0]["procedureSubOption"] || null;
+            console.log(subOption, "subOption");
+            if (subOption) {
+              this.precio = subOption[0].price;
+            } else {
+              this.precio = Option[0].price;
+            }
+          } else {
+            this.precio = response.data.ProcedureData.procedure.precio;
+          }
           this.loading = false;
         })
         .catch((error) => {
@@ -161,7 +178,7 @@ export default {
           lineHeightFactor: 2,
         }
       );
-      doc.text(20, 80, `Valor abonado: ${this.dataPayment?.procedure.price}`);
+      doc.text(20, 80, `Valor abonado: ${this.precio}`);
 
       doc.text(
         20,
@@ -194,6 +211,7 @@ export default {
   margin-top: 8%;
   padding-bottom: 10%;
   padding-top: 5%;
+  text-align: center;
   /*  */
   /* padding-left: 4%; */
   /* padding-right: 4%; */

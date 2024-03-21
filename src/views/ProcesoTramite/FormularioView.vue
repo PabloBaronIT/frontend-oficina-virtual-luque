@@ -59,14 +59,17 @@
 
         <h4>Volver atrás</h4>
       </div>
-      <div v-if="this.presencial">
-        <router-link to="/turneroweb">
-          <h4>RESERVAR TURNO</h4>
+      <div v-if="this.presencial" style="display: flex; flex-direction: row">
+        <router-link
+          :to="`/turneroweb?tramiteId=${this.procedureId}&optionId=${this.optionId}&subOptionId=${this.subOptionId}`"
+        >
+          <h4>Reservar Turno</h4>
         </router-link>
+        <img src="./../../assets/images/FlechaDerecha.svg" alt="imagen" />
       </div>
       <div
-        style="display: flex; flex-direction: row"
         v-else
+        style="display: flex; flex-direction: row"
         @click="
           () => {
             this.inicio = false;
@@ -108,6 +111,9 @@ export default {
   data() {
     return {
       // Extrayendo  datos de categoria y tramite desde el path con VUE ROUTER
+      procedureId: "",
+      optionId: "",
+      subOpcionId: "",
       category: this.$route.params,
       // length: null,
       preguntas: "",
@@ -131,6 +137,15 @@ export default {
     // this.formularioTitle = this.$route.params.formularioTitle;
     this.getTemplate();
     procedure.questions = [];
+    (this.procedureId = parseInt(this.$route.params.tramiteId)),
+      (this.optionId =
+        this.$route.query.opcionTramite === "null"
+          ? null
+          : parseInt(this.$route.query.opcionTramite)),
+      (this.subOptionId =
+        this.$route.query.subOpcionTramite === "null"
+          ? null
+          : parseInt(this.$route.query.subOpcionTramite));
   },
   methods: {
     setProcedure(asd) {
@@ -182,7 +197,7 @@ export default {
           procedure.title = response.data.Template.title;
           procedure.precio = response.data.Template.price;
           this.titulo = response.data.Template.title;
-          this.presencial = true;
+          this.presencial = false;
           // this.sector = response.data.Template.category.title;
 
           // this.length = r.question.length;
@@ -359,6 +374,9 @@ h5 {
   font-weight: 500;
   line-height: normal;
   margin-top: 1.5vh;
+}
+a {
+  text-decoration: none;
 }
 
 @media (max-width: 800px) {

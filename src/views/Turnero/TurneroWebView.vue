@@ -2,46 +2,89 @@
   <div class="turnos-container">
     <h1 class="tituloPrincipal">Turnero</h1>
     <h4 style="color: #4b4a49; font-weight: 400; margin-top: 1rem">
-      Selecciona el área, el trámite y la fecha para ver los horarios
-      disponibles.
+      Selecciona fecha y horario disponibles.
     </h4>
     <div class="turnero">
-      <div class="row1">
-        <div style="display: flex; flex-direction: column; width: 50%">
-          <h3>Area</h3>
-          <select name="area" id="" v-model="this.area">
-            <option selected value="Area" disabled>Area</option>
-            <option value="Corralon">Corralon</option>
-            <option value="Renta" selected>Renta</option>
-          </select>
+      <div class="row">
+        <div style="display: flex; flex-direction: column; width: 100%">
+          <h6>Fecha del turno:</h6>
+          <!-- <datepicker v-model="picked" @closed="this.SetDate" /> -->
+          <input type="date" v-model="this.date" @change="SetDate" />
         </div>
-        <div style="display: flex; flex-direction: column; width: 50%">
-          <h3>Tramite</h3>
+      </div>
+      <div class="row">
+        <div style="display: flex; flex-direction: column; width: 100%">
+          <h6>Hora del turno:</h6>
+
           <select
-            name="tramite"
+            name="hora"
             id=""
-            v-model="this.tramite"
-            :disabled="this.area != null ? false : true"
+            :disabled="this.date ? false : true"
+            v-model="this.hour"
+            @change="SetHour"
           >
-            <option value="Tramite 1">Tramite 1</option>
-            <option value="Tramite 2" selected>Tramite 2</option>
+            <option :value="hora" v-for="hora in horas" :key="hora">
+              {{ `${hora.inicio} - ${hora.final}` }}
+            </option>
           </select>
         </div>
+      </div>
+      <div class="row">
+        <button class="boton" @click="submitData">Confirmar Turno</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import Datepicker from "vue3-datepicker";
 export default {
   name: "TurneroView",
   data() {
     return {
-      area: null,
-      tramite: null,
-      fecha: null,
-      hora: null,
+      date: "",
+      hour: null,
+      horas: [
+        {
+          inicio: "08:00",
+          final: "08:30",
+        },
+        {
+          inicio: "08:30",
+          final: "09:00",
+        },
+        {
+          inicio: "09:00",
+          final: "09:30",
+        },
+        {
+          inicio: "09:30",
+          final: "10:00",
+        },
+        {
+          inicio: "10:00",
+          final: "10:30",
+        },
+        {
+          inicio: "10:30",
+          final: "11:00",
+        },
+      ],
     };
+  },
+  components: {
+    // Datepicker,
+  },
+  methods: {
+    SetDate() {
+      console.log(this.date);
+    },
+    SetHour() {
+      console.log(this.hour);
+    },
+    submitData() {
+      console.log(this.date, this.hour, "soy la fecha y la hora");
+    },
   },
 };
 </script>
@@ -76,16 +119,27 @@ export default {
   text-align: center;
   padding-top: 5%;
 }
-.row1 {
+/* .row1 {
   display: flex;
   flex-direction: row;
   width: 100%;
-  background: red;
-}
-select {
-  width: 90%;
-  border-radius: 10px;
-  height: 3rem;
+  justify-content: center;
+} */
+select,
+input[type="date"] {
+  width: 50%;
   margin: auto;
+  border-radius: 10px;
+  padding: 2%;
+  margin-bottom: 5%;
+}
+.boton {
+  width: 20%;
+  min-height: 50px;
+  margin: auto;
+  background: #00c3a8;
+  border-radius: 10px;
+  border: none;
+  color: #f5f5f5;
 }
 </style>

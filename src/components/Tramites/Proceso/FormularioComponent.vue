@@ -202,6 +202,7 @@
         type="button"
         value="Enviar"
         @click="this.submitt"
+        v-else
       />
       <!-- <input
         v-if="this.paso + 1 == this.preguntas.length"
@@ -758,9 +759,10 @@ h5 {
   margin-top: 1rem;
 }
 .error {
+  width: 100%;
   color: #00c3a8;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 }
 .tipoRadio {
@@ -845,6 +847,7 @@ h5 {
   position: absolute;
   right: 0;
   margin-top: -5%;
+  height: auto;
   /* margin-bottom: 10rem; */
 }
 

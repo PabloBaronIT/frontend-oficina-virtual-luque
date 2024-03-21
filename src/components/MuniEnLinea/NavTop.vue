@@ -311,9 +311,11 @@ export default {
     },
     logOf() {
       localStorage.clear();
+      const url = window.location.host; // Obtiene la URL base sin parámetros
+      // window.history.replaceState({}, url);
       this.dispatchOutLogin();
-      location.reload();
-      this.$router.push("login");
+      location.replace(url);
+      this.$router.push("/login");
       googleLogout();
       document.cookie = "cidi=; max-age=0";
       window.dispatchEvent(
