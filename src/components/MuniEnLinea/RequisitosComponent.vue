@@ -148,13 +148,21 @@ export default {
         })
         .then((response) => {
           let asd = response.data.requeriments;
+
           console.log(asd, "soy los requisitos");
           asd.forEach((element) => {
-            this.requisitos.push(element.requeriment.requeriment);
+            if (element.requeriment.requeriment === "Presencial") {
+              this.setPresencial();
+            } else {
+              this.requisitos.push(element.requeriment.requeriment);
+            }
           });
           console.log(response.data, "soy los requisitos del tramite");
         });
     },
+  },
+  props: {
+    setPresencial: Function,
   },
 };
 </script>

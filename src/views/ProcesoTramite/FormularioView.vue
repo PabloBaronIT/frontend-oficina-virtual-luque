@@ -21,7 +21,7 @@
     <!-- RECUADRO DE INICIO MUESTRA CADA REQUISITO EN ESPECIFICO PARA CADA TRAMITE-->
 
     <div class="row" v-if="this.inicio == true">
-      <RequisitosComponent />
+      <RequisitosComponent :setPresencial="setPresencial" />
     </div>
     <!-- ------- -->
 
@@ -65,7 +65,7 @@
         >
           <h4>Reservar Turno</h4>
         </router-link>
-        <img src="./../../assets/images/FlechaDerecha.svg" alt="imagen" />
+        <!-- <img src="./../../assets/images/FlechaDerecha.svg" alt="imagen" /> -->
       </div>
       <div
         v-else
@@ -197,7 +197,6 @@ export default {
           procedure.title = response.data.Template.title;
           procedure.precio = response.data.Template.price;
           this.titulo = response.data.Template.title;
-          this.presencial = false;
           // this.sector = response.data.Template.category.title;
 
           // this.length = r.question.length;
@@ -258,6 +257,9 @@ export default {
 
       progress.style.width =
         (actives.length / (circles.length + 1)) * 100 + "%";
+    },
+    setPresencial() {
+      this.presencial = true;
     },
   },
   computed: {
