@@ -33,9 +33,9 @@
               {{ item.title }}</label
             >
             <br />
-            <label :for="item.id" class="">
+            <!-- <label :for="item.id" class="">
               {{ item.description }}
-            </label>
+            </label> -->
           </div>
         </div>
       </div>
@@ -48,13 +48,19 @@
         <!-- <label class="option-text">{{ item.title }}</label -->
         <!-- ><br /> -->
         <label for=""> {{ item.title }}</label>
-        <textarea
+        <!-- <textarea
           name=""
           id=""
           cols="30"
           rows="5"
           v-model="this.textInput"
-        ></textarea>
+        ></textarea> -->
+        <input
+          class="form-control text-number-input"
+          style="width: 27vw"
+          :type="item.type"
+          v-model="this.textInput"
+        />
       </div>
       <div
         v-if="item.title !== `Indique la ubicación` && item.type === 'number'"
@@ -112,27 +118,30 @@
       <div v-if="item.type == 'file'" class="file-container">
         <div v-if="!asd" class="file-intro">
           <img alt="" id="img-preview" class="imgFile" v-if="this.fileSelect" />
-          <i class="bi bi-upload" style="font-size: 35px" v-else></i>
+          <i
+            class="bi bi-card-image"
+            style="font-size: 35px; color: #00c3a8"
+            v-else
+          ></i>
 
-          <hr />
+          <!-- <hr /> -->
           <input
             accept=".jpg, .jpeg, .png, .webp"
             :type="item.type"
             v-model="this.fileSelect"
             id="img-uploader"
             @change="selectFile($event)"
+            v-if="!this.fileSelect"
           />
 
           <!--INPUT PARA SUBIR EL ARCHIVO-->
-          <div>
-            <input
-              v-if="this.fileSelect"
-              class="m-2 btn btnColor"
-              type="button"
-              value="Subir archivo"
-              @click="postFile()"
-            />
-          </div>
+          <input
+            v-else
+            class="m-2 btn btnColor"
+            type="button"
+            value="Subir archivo"
+            @click="postFile()"
+          />
         </div>
         <div v-else class="cargado">
           <img
@@ -638,9 +647,12 @@ export default {
 /* CSS NUEVO */
 .optionsRadio {
   padding-bottom: 2%;
+  /* padding-left: 5%; */
   display: flex;
   flex-direction: column;
   align-content: center;
+  width: 60%;
+  margin: auto;
 }
 .contenedor {
   margin-bottom: 12%;
@@ -651,6 +663,8 @@ export default {
 .btnColor {
   background-image: linear-gradient(90deg, #019939 4.26%, #ffcc03 126.04%);
   color: white;
+  width: 50%;
+  font-size: 14px;
 }
 h5 {
   color: #019939;
@@ -710,10 +724,10 @@ h5 {
   padding-top: 1rem;
   margin: auto;
   height: 5rem;
-  width: 80%;
+  width: 60%;
 }
 .topquestion h5 {
-  color: #019939;
+  color: #3e3e3e;
 
   font-size: 21.88px;
   font-style: normal;
@@ -768,11 +782,12 @@ h5 {
 .tipoRadio {
   display: flex;
   flex-direction: row;
+  align-content: center;
 }
 .tipoRadio input[type="radio"] {
   height: 20px;
   width: 20px;
-  margin-top: 22px;
+  margin-top: 10px;
   margin-right: 15px;
 }
 .botonSubmit {
@@ -807,13 +822,14 @@ h5 {
 /* ---------- */
 
 .file-container {
-  border: 1px solid var(--grey);
+  border: 1px var(--grey);
+  border-style: dashed;
   padding: 1rem;
   border-radius: 5px;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  width: 75%;
+  width: 30%;
   margin: auto;
   margin-bottom: 2rem;
 }

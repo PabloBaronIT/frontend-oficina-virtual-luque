@@ -15,6 +15,7 @@
             :enable-time-picker="false"
             :month-change-on-scroll="false"
             :format="format"
+            @update:model-value="handleDate"
             style="width: 50%; margin: auto; margin-bottom: 5%"
           ></VueDatePicker>
         </div>
@@ -30,31 +31,48 @@
             v-model="this.hour"
             @change="SetHour"
           >
-            <option :value="hora" v-for="hora in horas" :key="hora">
-              {{ `${hora.inicio} - ${hora.final}` }}
+            <option :value="time" v-for="time in timesApi" :key="time">
+              <!-- <p>{{ time.inicio }}</p>
+                <p>{{ " - " }}</p>
+                <p>{{ time.final }}</p> -->
+              <p>{{ `${time.inicio} - ${time.final}` }}</p>
+
+              <!-- {{ `${time.inicio} - ${time.final}` }} -->
             </option>
           </select>
         </div>
       </div>
       <div class="row">
-        <button class="boton" @click="submitData">Confirmar Turno</button>
+        <button class="boton" @click="submitData" v-if="this.date && this.hour">
+          Confirmar Turno
+        </button>
+      </div>
+      <div class="row">
+        <div v-if="this.mensaje" class="mensaje">
+          <p class="mensaje">
+            {{ this.mensaje }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from "axios";
-// import { BASE_URL } from "@/env";
+import axios from "axios";
+import { BASE_URL } from "@/env";
+import setToken from "@/middlewares/setToken";
+import setTokenRelations from "@/middlewares/setTokenRelations";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 export default {
   name: "TurneroView",
   data() {
     return {
-      date: "",
+      date: null,
       hour: null,
       data: "",
+      mensaje: null,
       horas: [
         {
           inicio: "08:00",
@@ -81,6 +99,7 @@ export default {
           final: "11:00",
         },
       ],
+      timesApi: [],
     };
   },
   created() {
@@ -104,32 +123,101 @@ export default {
 
       return `Fecha seleccionada: ${day}/${month}/${year}`;
     },
-    SetDate() {
-      this.data.appointmentDay = this.date.toString();
-
-      console.log(this.date);
-    },
     SetHour() {
       this.data.appointmentTime = this.hour?.inicio;
-      this.data.appointmentDay = new Date(this.date).toLocaleDateString();
+      this.data.appointmentDay = new Date(this.date)
+        .toISOString()
+        .split("T")[0];
+    },
+    handleDate(date) {
+      this.data.appointmentDay = date.toISOString().split("T")[0];
+      console.log(this.data, "soy el dia seleccionado");
+      const apiClient = axios.create({
+        baseURL: BASE_URL,
+        withCredentials: false,
+        headers: {
+          "auth-header": localStorage.getItem("token"),
+        },
+      });
+      apiClient
+        .post("/appointments/find-times", this.data)
+        .then((response) => {
+          console.log(response.data, "soy los horaria del dia");
+          let times = response.data.Times;
+          for (let index = 0; index < times.length; index++) {
+            let asd = times[index];
+            let elemento = asd?.split(":");
+            if (elemento[1] === "00") {
+              const element = {
+                inicio: times[index],
+                final: `${elemento[0]}:30`,
+              };
+              this.timesApi.push(element);
+            } else if (elemento[1] === "30") {
+              let asd = parseInt(elemento[0]);
+
+              const element = {
+                inicio: times[index],
+                final: `${asd + 1}:00`,
+              };
+              this.timesApi.push(element);
+            }
+          }
+          console.log(this.timesApi, "soy los horarios");
+        })
+        .catch((error) => {
+          console.log(error);
+
+          if (error.response.status === 500) {
+            if (error.response.data.message === "Token de usuario expirado") {
+              setToken();
+              this.handleDate();
+            }
+            if (
+              error.response.data.message === "Token de representante expirado"
+            ) {
+              setTokenRelations();
+              this.handleDate();
+            }
+          } else {
+            this.mensaje = "Se ha producido un error, vuelva a interntarlo.";
+          }
+        });
     },
     submitData() {
-      // this.data = {
-      //   appointmentDay: this.date?.toString(),
-      //   appointmentTime: this.hour,
-      // };
-      // const apiClient = axios.create({
-      //   baseURL: BASE_URL,
-      //   withCredentials: false,
-      //   headers: {
-      //     "auth-header": localStorage.getItem("token"),
-      //   },
-      // });
-      // apiClient
-      //   .post("/appointments/schedule-appointment", this.data)
-      //   .then((response) => {
-      //     console.log(response);
-      //   });
+      const apiClient = axios.create({
+        baseURL: BASE_URL,
+        withCredentials: false,
+        headers: {
+          "auth-header": localStorage.getItem("token"),
+        },
+      });
+      apiClient
+        .post("/appointments/schedule-appointment", this.data)
+        .then((response) => {
+          this.date = "";
+          this.hour = "";
+          this.mensaje = response.data.message;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+
+          if (error.response.status === 500) {
+            if (error.response.data.message === "Token de usuario expirado") {
+              setToken();
+              this.submitData();
+            }
+            if (
+              error.response.data.message === "Token de representante expirado"
+            ) {
+              setTokenRelations();
+              this.submitData();
+            }
+          } else {
+            this.mensaje = "Se ha producido un error, vuelva a interntarlo.";
+          }
+        });
       console.log(this.data, "soy toda la data");
     },
   },
@@ -189,5 +277,15 @@ select {
   border-radius: 10px;
   border: none;
   color: #f5f5f5;
+}
+.mensaje {
+  color: #00c3a8;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.final {
+  margin-left: 10%;
 }
 </style>
