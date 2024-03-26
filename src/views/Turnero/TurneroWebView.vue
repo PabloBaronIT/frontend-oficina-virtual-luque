@@ -73,32 +73,6 @@ export default {
       hour: null,
       data: "",
       mensaje: null,
-      horas: [
-        {
-          inicio: "08:00",
-          final: "08:30",
-        },
-        {
-          inicio: "08:30",
-          final: "09:00",
-        },
-        {
-          inicio: "09:00",
-          final: "09:30",
-        },
-        {
-          inicio: "09:30",
-          final: "10:00",
-        },
-        {
-          inicio: "10:00",
-          final: "10:30",
-        },
-        {
-          inicio: "10:30",
-          final: "11:00",
-        },
-      ],
       timesApi: [],
     };
   },
@@ -197,6 +171,7 @@ export default {
         .then((response) => {
           this.date = "";
           this.hour = "";
+          this.timesApi = [];
           this.mensaje = response.data.message;
           console.log(response);
         })
