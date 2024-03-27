@@ -1,57 +1,125 @@
 <template>
   <div class="turnos-container">
     <h1 class="tituloPrincipal">Turnero</h1>
-    <h4 style="color: #4b4a49; font-weight: 400; margin-top: 1rem">
-      Seleccioná una fecha y podrás ver los horarios disponibles.
-    </h4>
-    <div class="turnero">
-      <div class="row">
-        <div style="display: flex; flex-direction: column; width: 100%">
-          <h6>Fecha del turno:</h6>
-          <VueDatePicker
-            v-model="date"
-            :min-date="new Date()"
-            :disabled-week-days="[6, 0]"
-            :enable-time-picker="false"
-            :month-change-on-scroll="false"
-            :format="format"
-            @update:model-value="handleDate"
-            style="width: 50%; margin: auto; margin-bottom: 5%"
-          ></VueDatePicker>
-        </div>
-      </div>
-      <div class="row">
-        <div style="display: flex; flex-direction: column; width: 100%">
-          <h6>Hora del turno:</h6>
+    <div v-if="!this.ids">
+      <h3>{{ this.message }}</h3>
 
-          <select
-            name="hora"
-            id=""
-            :disabled="this.date ? false : true"
-            v-model="this.hour"
-            @change="SetHour"
+      <div v-if="this.myAppointments" class="turnos">
+        <h3>Mis turnos</h3>
+        <div v-for="item in this.myAppointments" :key="item.id" class="turno">
+          <h6>{{ item.procedure.title }} {{ " " }}</h6>
+          <h6>
+            {{
+              item.procedure?.procedureOption.length
+                ? item.procedure?.procedureOption[0].title
+                : ""
+            }}
+          </h6>
+          <p>Area: {{ item.area.area_name }}</p>
+          <p>Día: {{ new Date(item.day).toLocaleDateString() }}</p>
+          <p>Hora: {{ item.time }}</p>
+          <p
+            class="delete"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            @click="setDeleteId(item.id)"
           >
-            <option :value="time" v-for="time in timesApi" :key="time">
-              <!-- <p>{{ time.inicio }}</p>
-                <p>{{ " - " }}</p>
-                <p>{{ time.final }}</p> -->
-              <p>{{ `${time.inicio} - ${time.final}` }}</p>
-
-              <!-- {{ `${time.inicio} - ${time.final}` }} -->
-            </option>
-          </select>
+            cancelar Turno
+          </p>
         </div>
       </div>
-      <div class="row">
-        <button class="boton" @click="submitData" v-if="this.date && this.hour">
-          Confirmar Turno
-        </button>
+
+      <!-- MODAL PARA ELIMINAR Y/O REPROGRAMAR -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5>
+                Usted puede eliminar su turno y ademas reprogramar el mismo.
+                <br />
+                Que desea hacer?
+              </h5>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                @click="deleteTurno()"
+              >
+                Solo Eliminar
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                @click="deleteTurno(this.reprogramar)"
+              >
+                Eliminar y reprogramar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <div v-if="this.mensaje" class="mensaje">
-          <p class="mensaje">
-            {{ this.mensaje }}
-          </p>
+    </div>
+    <div v-if="this.ids">
+      <h4 style="color: #4b4a49; font-weight: 400; margin-top: 1rem">
+        Seleccioná una fecha y podrás ver los horarios disponibles.
+      </h4>
+      <div class="turnero">
+        <div class="row">
+          <div style="display: flex; flex-direction: column; width: 100%">
+            <h6>Fecha del turno:</h6>
+            <VueDatePicker
+              v-model="date"
+              :min-date="new Date()"
+              :disabled-week-days="[6, 0]"
+              :enable-time-picker="false"
+              :month-change-on-scroll="false"
+              :format="format"
+              @update:model-value="handleDate"
+              style="width: 50%; margin: auto; margin-bottom: 5%"
+            ></VueDatePicker>
+          </div>
+        </div>
+        <div class="row">
+          <div style="display: flex; flex-direction: column; width: 100%">
+            <h6>Hora del turno:</h6>
+
+            <select
+              name="hora"
+              id=""
+              :disabled="this.date ? false : true"
+              v-model="this.hour"
+              @change="SetHour"
+            >
+              <option :value="time" v-for="time in timesApi" :key="time">
+                <p>{{ `${time.inicio} - ${time.final}` }}</p>
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <button
+            class="boton"
+            @click="submitData"
+            v-if="this.date && this.hour"
+          >
+            Confirmar Turno
+          </button>
+        </div>
+        <div class="row">
+          <div v-if="this.mensaje" class="mensaje">
+            <p class="mensaje">
+              {{ this.mensaje }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -74,6 +142,11 @@ export default {
       data: "",
       mensaje: null,
       timesApi: [],
+      ids: parseInt(this.$route.query.tramiteId) ? true : false,
+      message: null,
+      myAppointments: null,
+      idDelete: null,
+      reprogramar: true,
     };
   },
   created() {
@@ -88,6 +161,7 @@ export default {
           ? null
           : parseInt(this.$route.query.subOptionId),
     };
+    this.getTurnos();
   },
   methods: {
     format(date) {
@@ -195,6 +269,123 @@ export default {
         });
       console.log(this.data, "soy toda la data");
     },
+    getTurnos() {
+      const apiClient = axios.create({
+        baseURL: BASE_URL,
+        withCredentials: false,
+        headers: {
+          "auth-header": localStorage.getItem("token"),
+        },
+      });
+      apiClient
+        .get("/appointments/history/my-appointments?page=1")
+        .then((response) => {
+          this.myAppointments = response.data.MyAppointments;
+          console.log(response.data, "soy los turnos");
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          this.message = error.response.data.message;
+
+          if (error.response.status === 500) {
+            if (error.response.data.message === "Token de usuario expirado") {
+              setToken();
+              this.getTurnos();
+            }
+            if (
+              error.response.data.message === "Token de representante expirado"
+            ) {
+              setTokenRelations();
+              this.getTurnos();
+            }
+          }
+        });
+    },
+    setDeleteId(id) {
+      this.idDelete = id;
+    },
+    deleteTurno(reprogramar) {
+      console.log(this.idDelete, "soy el id del turno");
+      if (reprogramar) {
+        console.log("quiero reprogramar y eliminar");
+        // this.deleteT();
+        // this.$router.push("/munienlinea");
+      } else {
+        console.log("quiero solo eliminar");
+        this.deleteT();
+        this.$router.push("/munienlinea");
+      }
+      // const apiClient = axios.create({
+      //   baseURL: BASE_URL,
+      //   withCredentials: false,
+      //   headers: {
+      //     "auth-header": localStorage.getItem("token"),
+      //   },
+      // });
+      // apiClient
+      //   .post("/appointments/cancel-appointment", {
+      //     appointmentId: this.idDelete,
+      //   })
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     this.myAppointments = null;
+      //     this.getTurnos();
+      //   })
+      //   .catch((error) => {
+      //     console.log(error.response);
+
+      //     if (error.response.status === 500) {
+      //       if (error.response.data.message === "Token de usuario expirado") {
+      //         setToken();
+      //         this.deleteTurno();
+      //       }
+      //       if (
+      //         error.response.data.message === "Token de representante expirado"
+      //       ) {
+      //         setTokenRelations();
+      //         this.deleteTurno();
+      //       }
+      //     } else {
+      //       this.mensaje = "Se ha producido un error, vuelva a interntarlo.";
+      //     }
+      //   });
+    },
+    deleteT() {
+      const apiClient = axios.create({
+        baseURL: BASE_URL,
+        withCredentials: false,
+        headers: {
+          "auth-header": localStorage.getItem("token"),
+        },
+      });
+      apiClient
+        .post("/appointments/cancel-appointment", {
+          appointmentId: this.idDelete,
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.myAppointments = null;
+          this.getTurnos();
+        })
+        .catch((error) => {
+          console.log(error.response);
+
+          if (error.response.status === 500) {
+            if (error.response.data.message === "Token de usuario expirado") {
+              setToken();
+              this.deleteTurno();
+            }
+            if (
+              error.response.data.message === "Token de representante expirado"
+            ) {
+              setTokenRelations();
+              this.deleteTurno();
+            }
+          } else {
+            this.mensaje = "Se ha producido un error, vuelva a interntarlo.";
+          }
+        });
+    },
   },
   components: { VueDatePicker },
 };
@@ -209,6 +400,7 @@ export default {
   padding-bottom: 10%;
   padding-left: 4%;
   padding-right: 4%;
+  height: 100%;
 }
 .tituloPrincipal {
   color: #4b4a49;
@@ -262,5 +454,31 @@ select {
 
 .final {
   margin-left: 10%;
+}
+.turnos {
+  width: 80%;
+  margin: auto;
+  margin-top: 10%;
+  height: auto;
+  text-align: left;
+}
+.turno {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  text-align: center;
+  /* padding-top: 2%; */
+  padding: 2%;
+  background: #4b4a491a;
+  border-bottom: 1px black;
+  border-bottom-style: dotted;
+}
+.delete {
+  cursor: pointer;
+  color: red;
+  text-decoration: underline;
+  font-size: 12px;
 }
 </style>

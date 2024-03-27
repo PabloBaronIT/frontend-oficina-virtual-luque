@@ -20,6 +20,9 @@
       <router-link v-show="setPermission" :to="`/notificaciones`" class="bn3">
         <h5>Notificaciones</h5>
       </router-link>
+      <router-link v-show="setPermission" :to="`/turneroweb`" class="bn3">
+        <h5>Turnos</h5>
+      </router-link>
     </div>
     <router-link
       v-show="setPermission"

@@ -10,10 +10,49 @@
       </h5>
     </div>
     <!--DETALLES DE OPCIONES-->
+    <!-- PARA VER MAPA Y PODER ESCRIBIR DIRECCION -->
+
+    <div
+      v-if="
+        this.preguntas[this.paso]?.question?.title === 'Indique la ubicación'
+      "
+    >
+      <div class="questions">
+        <div class="tipoMap">
+          <div class="inputCalle">
+            <label>Calle</label>
+            <input
+              class="form-control text-number-input"
+              type="text"
+              v-model="this.calle"
+            />
+            <label>Nro.</label>
+            <input
+              class="form-control text-number-input"
+              type="number"
+              v-model="this.numero"
+            />
+          </div>
+          <div class="entreCalles">
+            <label>Entre calles</label>
+            <input
+              class="form-control text-number-input"
+              type="text"
+              v-model="this.entrecalles"
+            />
+          </div>
+        </div>
+        <div class="tipoMap">
+          <MapaLocationComponentVue :setTextInput="this.setTextInput" />
+        </div>
+      </div>
+    </div>
+    <!-- DETALLE DE DEMAS PREGUNTAS QUE NO NSEAN INDICAR UBICACION  -->
     <div
       :v-if="
         this.preguntas[this.paso]?.questionOption?.length >= 1 &&
-        this.paso > this.preguntas.length
+        this.paso > this.preguntas.length &&
+        this.preguntas[this.paso]?.question?.title !== 'Indique la ubicación'
       "
       v-for="(item, index) in this.preguntas[this.paso]?.questionOption"
       :key="item.id"
@@ -33,28 +72,21 @@
               {{ item.title }}</label
             >
             <br />
-            <!-- <label :for="item.id" class="">
-              {{ item.description }}
-            </label> -->
           </div>
         </div>
       </div>
 
       <!-- INPUT TIPO TEXTO -->
       <div
-        v-if="item.title !== `Indique la ubicación:` && item.type === 'text'"
+        v-if="
+          item.title !== `Indique la ubicación:` &&
+          item.title !== `Detalles de la ubicación:` &&
+          item.type === 'text'
+        "
         class="tipoTexto"
       >
-        <!-- <label class="option-text">{{ item.title }}</label -->
-        <!-- ><br /> -->
         <label for=""> {{ item.title }}</label>
-        <!-- <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="5"
-          v-model="this.textInput"
-        ></textarea> -->
+
         <input
           class="form-control text-number-input"
           style="width: 27vw"
@@ -63,11 +95,14 @@
         />
       </div>
       <div
-        v-if="item.title !== `Indique la ubicación:` && item.type === 'number'"
+        v-if="
+          item.title !== `Indique la ubicación:` &&
+          item.title !== `Detalles de la ubicación:` &&
+          item.type === 'number'
+        "
         class="tipoTexto"
         style="align-items: center"
       >
-        <!-- <label class="option-text">{{ item.title }}</label -->
         <br />
         <label for="">
           {{ item.description }}
@@ -78,39 +113,6 @@
           :type="item.type"
           v-model="this.textInput"
         />
-      </div>
-      <!-- PARA VER MAPA Y PODER ESCRIBIR DIRECCION -->
-      <div
-        v-if="item.type === 'text' && item.title === `Indique la ubicación:`"
-        class="tipoMap"
-      >
-        <div class="inputCalle">
-          <label>Calle</label>
-          <input
-            class="form-control text-number-input"
-            :type="item.type"
-            v-model="this.calle"
-          />
-          <label>Nro.</label>
-          <input
-            class="form-control text-number-input"
-            type="number"
-            v-model="this.numero"
-          />
-        </div>
-        <div class="entreCalles">
-          <label>Entre calles</label>
-          <input
-            class="form-control text-number-input"
-            :type="item.type"
-            v-model="this.entrecalles"
-          />
-        </div>
-
-        <!-- <label>{{ item.title }}</label
-          ><br />
-          <label for=""> {{ item.description }}</label> -->
-        <MapaLocationComponentVue :setTextInput="this.setTextInput" />
       </div>
 
       <!-- INPUT TIPO FILE -->
@@ -158,26 +160,6 @@
     <p class="error" v-show="validation == false">
       Debe seleccionar una opcion para continuar
     </p>
-    <!-- </form> -->
-    <!-- <div class="btn-div">
-      <input
-        class="boton"
-        v-if="this.paso + 1 < this.preguntas.length"
-        type="button"
-        value="Siguiente"
-        @click="preNext()"
-      />
-
-      <input
-        v-if="this.paso + 1 > 1"
-        class="boton"
-        type="button"
-        value="Anterior"
-        @click="back()"
-      />
-
-      <input class="boton" type="button" value="Cancelar" @click="cancel()" />
-    </div> -->
     <div class="volver">
       <div style="display: flex; flex-direction: row" @click="back()">
         <img src="./../../../assets/images/FlechaIzquierda.svg" alt="imagen" />
@@ -201,27 +183,21 @@
     <!--INPUT PARA ENVIAR TODAS LAS RESPUESTAS-->
 
     <div v-if="this.paso + 1 === this.preguntas.length" class="btn-submit">
-      <div v-if="this.mensajeTrue" class="error">
+      <!-- <div v-if="this.mensajeTrue" class="error">
         <p>
           {{ this.mensaje }}
         </p>
-      </div>
+      </div> -->
       <input
         class="botonSubmit"
         type="button"
         value="Enviar"
-        v-else
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
+        @click="submitt"
       />
-      <!-- <input
-        v-if="this.paso + 1 == this.preguntas.length"
-        class="botonSubmit"
-        type="button"
-        value="Verpdf"
-        @click="ver"
-      /> -->
     </div>
+
     <!-- MODAL -->
     <div
       class="modal fade"
@@ -231,19 +207,11 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div> -->
+        <div class="modal-content" v-if="this.mensajeTrue">
           <div class="modal-body">
-            <h6>Tu solicitud ha sido presentada exitosamente.</h6>
-            <p>N° de trámite: 0000001</p>
+            <p>{{ this.mensaje?.message }}</p>
+            <!-- <h6>Tu solicitud ha sido presentada exitosamente.</h6> -->
+            <p>N° de trámite: {{ this.mensaje?.procedure_history_id || "" }}</p>
             <p>
               Podés seguir el estado de tu solicitud en la sección Presentadas
             </p>
@@ -253,6 +221,11 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              @click="
+                () => {
+                  this.$router.push(`/munienlinea`);
+                }
+              "
             >
               Close
             </button>
@@ -333,34 +306,15 @@ export default {
     // procedure.userId = localStorage.getItem("id");
     this.loading = true;
     this.setLoading();
-    console.log(this.preguntas?.length, "cantidad de preguntas");
+    console.log(this.preguntas, "soy las de preguntas");
     this.sectorTitle = this.$route.query.sector;
     this.formularioTitle = this.$route.params.formularioTitle;
-
-    // (this.optionId =
-    //   this.$route.query.opcionTramite == "null"
-    //     ? null
-    //     : parseInt(this.$route.query.opcionTramite)),
-    //   (this.subOptionId =
-    //     this.$route.query.subOpcionTramite == "null"
-    //       ? null
-    //       : parseInt(this.$route.query.subOpcionTramite)),
-    //   (this.procedureId = parseInt(this.$route.params.tramiteId));
-    // if(this.opcionTramite != null){
-    //         this.opcionTramite= parseInt(this.opcionTramite)
-    //     }else{
-    //       this.opcionTramite= null
-    //     }
-    // if(this.subOpcionTramite != null){
-    //     this.subOpcionTramite= parseInt(this.subOpcionTramite)
-    // }
     console.log(
       this.procedureId,
       this.optionId,
       this.subOptionId,
       "soy el tramite, la opcion Y subOpcion del tramite"
     );
-    // console.log(this.nivel, "soy el nivel");
   },
   methods: {
     setTextInput(a, b) {
@@ -596,7 +550,7 @@ export default {
               let idTramite = response.data.procedure_history_id;
               this.textInput = "";
               this.mensajeTrue = true;
-              this.mensaje = response.data.message;
+              this.mensaje = response.data;
               let precioTramite = response.data.procedure_price;
 
               if (precioTramite > 0) {
@@ -605,15 +559,16 @@ export default {
                   this.$router.push(
                     `/pago/${idTramite}?precio=${precioTramite}`
                   );
-                }, 2000);
-              } else {
-                // alert(
-                //   "Su reclamo fue presentado! Gracias por utilizar nuestra Oficina Virtual"
-                // );
-                setTimeout(() => {
-                  this.$router.push(`/munienlinea`);
-                }, 2000);
+                }, 3000);
               }
+              // else {
+              // alert(
+              //   "Su reclamo fue presentado! Gracias por utilizar nuestra Oficina Virtual"
+              // );
+              // setTimeout(() => {
+              //   this.$router.push(`/munienlinea`);
+              // }, 2000);
+              // }
               this.dispatchClean();
               this.dispatchProcedure();
               //   //console.log(this.$store.procedure[0]);
@@ -638,7 +593,11 @@ export default {
                 this.submitt();
               }
             } else {
-              this.mensaje = "Se ha producido un error, vuelva a interntarlo.";
+              this.mensajeTrue = true;
+
+              this.mensaje = {
+                message: "Se ha producido un error, vuelva a interntarlo.",
+              };
             }
           })
           .finally(() => {
